@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PanduanWebgisController;
 use App\Http\Controllers\PemakamanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -34,12 +35,33 @@ Route::middleware('auth')->group(function () {
     //! supaer admin
     // user
     Route::get('/user', [UserController::class, 'index'])->name('user.index');
+    Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+    Route::post('/user', [UserController::class, 'store'])->name('user.store');
+    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::get('/user/{id}', [UserController::class, 'show'])->name('user.show');
+    Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::post('/user/{id}', [UserController::class, 'update'])->name('user.update');
 
     // tpu
     Route::get('/tpu', [PemakamanController::class, 'super_admin_tpu_index'])->name('tpu.index');
+    Route::get('/tpu/create', [PemakamanController::class, 'super_admin_tpu_create'])->name('tpu.create');
+    Route::post('/tpu', [PemakamanController::class, 'super_admin_tpu_store'])->name('tpu.store');
+    Route::get('/tpu/{id}', [PemakamanController::class, 'super_admin_tpu_detail'])->name('tpu.detail');
+    Route::get('/tpu/{id}/edit', [PemakamanController::class, 'super_admin_tpu_edit'])->name('tpu.edit');
+    Route::post('/tpu/{id}', [PemakamanController::class, 'super_admin_tpu_update'])->name('tpu.update');
+    Route::delete('/tpu/{id}', [PemakamanController::class, 'super_admin_tpu_destroy'])->name('tpu.destroy');
+
 
     // verifikasi tpu
     Route::get('/verifikasi', [PemakamanController::class, 'super_admin_verifikasi_tpu_index'])->name('verifikasi.index');
+    Route::get('/verifikasi/{id}', [PemakamanController::class, 'super_admin_verifikasi_tpu_detail'])->name('verifikasi.detail');
+    Route::post('/verifikasi/{id}', [PemakamanController::class, 'super_admin_verifikasi_tpu_post'])->name('verifikasi.post');
+    Route::delete('/verifikasi/{id}', [PemakamanController::class, 'super_admin_verifikasi_tpu_destroy'])->name('verifikasi.destroy');
+
+    // panduan webgis
+    Route::get('/panduan-webgis', [PanduanWebgisController::class, 'index'])->name('panduan-webgis.index');
+    Route::post('/panduan-webgis', [PanduanWebgisController::class, 'store'])->name('panduan-webgis.store');
+
 
 
     //! admin tpu
@@ -50,6 +72,10 @@ Route::middleware('auth')->group(function () {
     Route::get('kelola-tpu', [PemakamanController::class, 'admin_tpu_kelola_tpu'])->name('kelola-tpu.index');
     Route::get('kelola-tpu/create', [PemakamanController::class, 'admin_tpu_kelola_tpu_create'])->name('kelola-tpu.create');
     Route::post('kelola-tpu', [PemakamanController::class, 'admin_tpu_kelola_tpu_store'])->name('kelola-tpu.store');
+    Route::get('kelola-tpu/{id}', [PemakamanController::class, 'admin_tpu_kelola_tpu_detail'])->name('kelola-tpu.detail');
+    Route::get('kelola-tpu/{id}/edit', [PemakamanController::class, 'admin_tpu_kelola_tpu_edit'])->name('kelola-tpu.edit');
+    Route::post('kelola-tpu/{id}', [PemakamanController::class, 'admin_tpu_kelola_tpu_update'])->name('kelola-tpu.update');
+    Route::delete('kelola-tpu/{id}', [PemakamanController::class, 'admin_tpu_kelola_tpu_destroy'])->name('kelola-tpu.destroy');
 });
 
 require __DIR__ . '/auth.php';

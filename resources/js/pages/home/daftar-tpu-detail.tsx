@@ -107,7 +107,7 @@ function DaftarTpuDetail() {
 
                     <div className="w-full flex flex-col gap-5">
                         <img
-                            src={pemakaman.image}
+                            src={`/tpu-images/${pemakaman.image}`}
                             alt={`@${pemakaman.nama_pemakaman}`}
                             className=" w-full h-[300px] object-cover rounded-lg"
                         />

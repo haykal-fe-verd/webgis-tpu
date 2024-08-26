@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PanduanWebgis;
 use App\Models\Pemakaman;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -11,7 +12,9 @@ class HomeController extends Controller
 {
     public function index(): Response
     {
-        return Inertia::render('home/index');
+        $tpu = Pemakaman::with('user')->where('is_approved', 1)->get();
+
+        return Inertia::render('home/index', compact('tpu'));
     }
 
     public function daftarTpu(Request $request): Response
@@ -49,11 +52,15 @@ class HomeController extends Controller
 
     public function peta(): Response
     {
-        return Inertia::render('home/peta');
+        $tpu = Pemakaman::with('user')->where('is_approved', 1)->get();
+
+        return Inertia::render('home/peta', compact('tpu'));
     }
 
     public function tutorial(): Response
     {
-        return Inertia::render('home/tutorial');
+        $isi = PanduanWebgis::first();
+
+        return Inertia::render('home/tutorial', compact('isi'));
     }
 }

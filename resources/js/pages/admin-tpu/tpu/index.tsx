@@ -1,5 +1,5 @@
 import React from "react";
-import { Head, Link, usePage } from "@inertiajs/react";
+import { Head, Link, usePage, router } from "@inertiajs/react";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Eye, Pencil, PlusCircle, Trash2 } from "lucide-react";
 
@@ -35,6 +35,19 @@ function KelolaTpu() {
 
     // states
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+    // events
+    const handleDetail = (id: number) => {
+        router.get(route("kelola-tpu.detail", id));
+    };
+
+    const handleEdit = (id: number) => {
+        router.get(route("kelola-tpu.edit", id));
+    };
+
+    const handleDelete = (id: number) => {
+        router.delete(route("kelola-tpu.destroy", id));
+    };
 
     // table
     const columns = [
@@ -145,15 +158,36 @@ function KelolaTpu() {
                                                         <DotsHorizontalIcon className="h-5 w-5" />
                                                     </DropdownMenuTrigger>
                                                     <DropdownMenuContent className="flex flex-col">
-                                                        <DropdownMenuItem className="inline-flex items-center gap-2 w-full">
+                                                        <DropdownMenuItem
+                                                            className="inline-flex items-center gap-2 w-full"
+                                                            onClick={() =>
+                                                                handleDetail(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                        >
                                                             <Eye className="h-4 w-4" />
                                                             <span>Detail</span>
                                                         </DropdownMenuItem>
-                                                        <DropdownMenuItem className="inline-flex items-center gap-2 w-full">
+                                                        <DropdownMenuItem
+                                                            onClick={() =>
+                                                                handleEdit(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="inline-flex items-center gap-2 w-full"
+                                                        >
                                                             <Pencil className="h-4 w-4" />
                                                             <span>Edit</span>
                                                         </DropdownMenuItem>
-                                                        <DropdownMenuItem className="inline-flex items-center gap-2 w-full">
+                                                        <DropdownMenuItem
+                                                            onClick={() =>
+                                                                handleDelete(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="inline-flex items-center gap-2 w-full"
+                                                        >
                                                             <Trash2 className="h-4 w-4" />
                                                             <span>Hapus</span>
                                                         </DropdownMenuItem>

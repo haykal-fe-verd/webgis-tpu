@@ -1,5 +1,5 @@
 import React from "react";
-import { Head, usePage } from "@inertiajs/react";
+import { Head, router, useForm, usePage } from "@inertiajs/react";
 import { Check, Eye, Trash2 } from "lucide-react";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 
@@ -31,9 +31,23 @@ interface VerifikasiProps extends PageProps {
 function Verifikasi() {
     // hooks
     const { tpu } = usePage<VerifikasiProps>().props;
+    const { post, delete: destroy } = useForm();
 
     // states
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+    // events
+    const onSetujui = (id: number) => {
+        post(route("verifikasi.post", id));
+    };
+
+    const handleDetail = (id: number) => {
+        router.get(route("verifikasi.detail", id));
+    };
+
+    const handleDestroy = (id: number) => {
+        destroy(route("verifikasi.destroy", id));
+    };
 
     // table
     const columns = [
@@ -143,7 +157,14 @@ function Verifikasi() {
                                                     </DropdownMenuTrigger>
                                                     <DropdownMenuContent className="flex flex-col">
                                                         {item.is_approved ? null : (
-                                                            <DropdownMenuItem className="inline-flex items-center gap-2 w-full">
+                                                            <DropdownMenuItem
+                                                                onClick={() =>
+                                                                    onSetujui(
+                                                                        item.id
+                                                                    )
+                                                                }
+                                                                className="inline-flex items-center gap-2 w-full"
+                                                            >
                                                                 <Check className="h-4 w-4" />
                                                                 <span>
                                                                     Setujui
@@ -151,11 +172,25 @@ function Verifikasi() {
                                                             </DropdownMenuItem>
                                                         )}
 
-                                                        <DropdownMenuItem className="inline-flex items-center gap-2 w-full">
+                                                        <DropdownMenuItem
+                                                            onClick={() =>
+                                                                handleDetail(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="inline-flex items-center gap-2 w-full"
+                                                        >
                                                             <Eye className="h-4 w-4" />
                                                             <span>Detail</span>
                                                         </DropdownMenuItem>
-                                                        <DropdownMenuItem className="inline-flex items-center gap-2 w-full">
+                                                        <DropdownMenuItem
+                                                            onClick={() =>
+                                                                handleDestroy(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="inline-flex items-center gap-2 w-full"
+                                                        >
                                                             <Trash2 className="h-4 w-4" />
                                                             <span>Hapus</span>
                                                         </DropdownMenuItem>

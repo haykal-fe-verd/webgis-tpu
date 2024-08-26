@@ -26,7 +26,6 @@ function DaftarTpu() {
     const { get } = useForm();
 
     const { pemakaman } = usePage<DaftarTpuProps>().props;
-    console.log("🚀  pemakaman ==>", pemakaman);
 
     // states
     const [idKabupaten, setIdKabupaten] = React.useState<string>("");
@@ -121,7 +120,7 @@ function DaftarTpu() {
                                         <CardContent className="p-5 ">
                                             <div className="flex flex-col gap-5">
                                                 <img
-                                                    src={item.image}
+                                                    src={`/tpu-images/${item.image}`}
                                                     alt={`@${item.nama_pemakaman}`}
                                                     className="w-full h-[200px] border"
                                                 />

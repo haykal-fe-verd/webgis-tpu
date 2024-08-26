@@ -14,8 +14,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            PemakamanSeeder::class,
-            BookingSeeder::class
+            // PemakamanSeeder::class,
+            // BookingSeeder::class,
+            // PanduanWebgisSeeder::class,
         ]);
     }
 }

@@ -12,7 +12,7 @@ import { EditControl } from "react-leaflet-draw";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
 
-import { PageProps } from "@/types";
+import { PageProps, Pemakaman } from "@/types";
 
 import AuthLayout from "@/layouts/auth-layout";
 import { Label } from "@/components/ui/label";
@@ -20,25 +20,28 @@ import { Input } from "@/components/ui/input";
 import InputError from "@/components/input-error";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { latitude, longitude } from "@/data/center";
 
-function CreateKelolaTpu() {
+interface EditKelolaTpuProps extends PageProps {
+    tpu: Pemakaman;
+}
+function EditKelolaTpu() {
     // hooks
-    const { user } = usePage<PageProps>().props;
+    const { user, tpu } = usePage<EditKelolaTpuProps>().props;
+
     const { data, setData, post, reset, errors, processing } = useForm({
         id_user: user.id,
         id_kabupaten: user.id_kabupaten,
         nama_kabupaten: user.nama_kabupaten,
         id_kecamatan: user.id_kecamatan,
         nama_kecamatan: user.nama_kecamatan,
-        nama_pemakaman: "",
-        luas: 0,
-        kapasitas: 0,
-        terpakai: 0,
-        alamat: "",
+        nama_pemakaman: tpu?.nama_pemakaman ?? "",
+        luas: tpu?.luas ?? 0,
+        kapasitas: tpu?.kapasitas ?? 0,
+        terpakai: tpu?.terpakai ?? 0,
+        alamat: tpu?.alamat ?? "",
         image: "" as any,
-        latitude: "",
-        longitude: "",
+        latitude: tpu?.latitude ?? "",
+        longitude: tpu?.longitude ?? "",
     });
 
     // states
@@ -95,7 +98,7 @@ function CreateKelolaTpu() {
 
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        post(route("kelola-tpu.store"));
+        post(route("kelola-tpu.update", tpu.id));
     };
 
     // mounted
@@ -112,7 +115,7 @@ function CreateKelolaTpu() {
 
     return (
         <AuthLayout>
-            <Head title="Pengajuan TPU Baru" />
+            <Head title="Edit TPU" />
 
             <div className="space-y-5">
                 <Link
@@ -124,7 +127,7 @@ function CreateKelolaTpu() {
                 </Link>
 
                 <h1 className="text-2xl font-bold md:text-4xl">
-                    Pengajuan TPU Baru
+                    Edit TPU {tpu?.nama_pemakaman}
                 </h1>
 
                 <div className="space-y-5 ">
@@ -238,14 +241,17 @@ function CreateKelolaTpu() {
                                 {processing && (
                                     <Loader2 className="w-4 h-4 animate-spin" />
                                 )}
-                                <span>Ajukan</span>
+                                <span>Edit</span>
                             </Button>
                         </div>
 
                         <div className="w-full space-y-5">
                             <MapContainer
                                 ref={mapRef}
-                                center={[latitude, longitude]}
+                                center={[
+                                    parseFloat(tpu.latitude),
+                                    parseFloat(tpu.longitude),
+                                ]}
                                 zoom={9}
                                 scrollWheelZoom={false}
                                 style={{
@@ -326,10 +332,16 @@ function CreateKelolaTpu() {
                                 <InputError message={errors.image} />
                             </div>
 
-                            {previewUrl && (
+                            {previewUrl ? (
                                 <img
                                     id="photoPreview"
                                     src={previewUrl}
+                                    className="object-cove w-full h-[400px]"
+                                />
+                            ) : (
+                                <img
+                                    id="image"
+                                    src={`/tpu-images/${tpu.image}`}
                                     className="object-cove w-full h-[400px]"
                                 />
                             )}
@@ -341,4 +353,4 @@ function CreateKelolaTpu() {
     );
 }
 
-export default CreateKelolaTpu;
+export default EditKelolaTpu;

@@ -124,7 +124,7 @@ function BookingTpu() {
                         </Card>
 
                         <img
-                            src={pemakaman.image}
+                            src={`/tpu-images/${pemakaman.image}`}
                             alt={`@${pemakaman.nama_pemakaman}`}
                             className="w-full h-[330px] object-cover border border-border rounded-md"
                         />

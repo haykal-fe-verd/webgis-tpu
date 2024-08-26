@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('kapasitas');
             $table->integer('terpakai');
             $table->text('alamat');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->string('latitude');
             $table->string('longitude');
             $table->boolean('is_approved')->default(false);

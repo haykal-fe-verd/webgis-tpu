@@ -1,12 +1,20 @@
 import React from "react";
-import { Head, Link } from "@inertiajs/react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { Head, Link, usePage } from "@inertiajs/react";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
+import { latitude, longitude } from "@/data/center";
 import GuestLayout from "@/layouts/guest-layout";
 import { Button } from "@/components/ui/button";
+import { PageProps, Pemakaman } from "@/types";
 
+interface HomePros extends PageProps {
+    tpu: Pemakaman[];
+}
 function Home() {
+    // hooks
+    const { tpu } = usePage<HomePros>().props;
+
     return (
         <GuestLayout>
             <Head title="Home" />
@@ -63,12 +71,14 @@ function Home() {
                                 banda aceh serta fitur pemesanan lahan secara
                                 online
                             </p>
-                            <Button className="mt-10">Lihat Detail</Button>
+                            <Button className="mt-10" asChild>
+                                <Link href={route("peta")}>Lihat Detail</Link>
+                            </Button>
                         </div>
 
                         <div className="w-full">
                             <MapContainer
-                                center={[5.308, 95.584]}
+                                center={[latitude, longitude]}
                                 zoom={9}
                                 scrollWheelZoom={true}
                                 style={{
@@ -81,6 +91,78 @@ function Home() {
                                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                     url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 />
+                                {tpu.map((item) => (
+                                    <Marker
+                                        key={item.id}
+                                        position={[
+                                            parseFloat(item.latitude),
+                                            parseFloat(item.longitude),
+                                        ]}
+                                    >
+                                        <Popup>
+                                            <table className="w-[200px] text-[10px]">
+                                                <tbody>
+                                                    <tr>
+                                                        <td className="w-[100px]">
+                                                            Kabupaten
+                                                        </td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            {
+                                                                item.nama_kabupaten
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="w-[100px]">
+                                                            Kecamatan
+                                                        </td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            {
+                                                                item.nama_kecamatan
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="w-[100px]">
+                                                            Alamat
+                                                        </td>
+                                                        <td>:</td>
+                                                        <td>{item.alamat}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="w-[100px]">
+                                                            Luas
+                                                        </td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            {item.luas} m
+                                                            <sup>2</sup>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="w-[100px]">
+                                                            Detail
+                                                        </td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <Link
+                                                                href={route(
+                                                                    "daftar-tpu-detail",
+                                                                    item.id
+                                                                )}
+                                                                className="text-blue-500 underline"
+                                                            >
+                                                                Lihat
+                                                            </Link>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </Popup>
+                                    </Marker>
+                                ))}
                             </MapContainer>
                         </div>
                     </div>

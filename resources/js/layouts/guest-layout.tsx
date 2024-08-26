@@ -27,7 +27,7 @@ function GuestLayout({ children }: PropsWithChildren) {
 
         if (sessions?.success) {
             toast({
-                title: "Berhasil 😚",
+                title: "Berhasil",
                 description: sessions.success,
             });
         }
@@ -35,7 +35,7 @@ function GuestLayout({ children }: PropsWithChildren) {
         if (sessions?.error) {
             toast({
                 variant: "destructive",
-                title: "Oops 😣",
+                title: "Oops",
                 description: sessions.success,
             });
         }

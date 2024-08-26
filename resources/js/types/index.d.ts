@@ -2,7 +2,7 @@ export interface User {
     id: number;
     name: string;
     email: string;
-    role: "super admin" | "admin tpu";
+    role: "super admin" | "admin tpu" | string;
     phone?: string;
     image?: any;
     id_kabupaten?: string;
@@ -134,6 +134,13 @@ export interface BookingResponse {
     to: number;
     total: number;
     links: Link[];
+}
+
+export interface Isi {
+    id: number;
+    isi: string;
+    created_at: string;
+    updated_at: string;
 }
 
 export type PageProps<

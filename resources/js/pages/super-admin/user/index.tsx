@@ -1,5 +1,5 @@
 import React from "react";
-import { Head, usePage } from "@inertiajs/react";
+import { Head, Link, router, usePage } from "@inertiajs/react";
 import { Eye, Pencil, PlusCircle, Trash2 } from "lucide-react";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 
@@ -36,6 +36,19 @@ function User() {
     // states
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
+    // events
+    const onEdit = (id: number) => {
+        router.get(route("user.edit", id));
+    };
+
+    const onDetail = (id: number) => {
+        router.get(route("user.show", id));
+    };
+
+    const onDelete = (id: number) => {
+        router.delete(route("user.destroy", id));
+    };
+
     // table
     const columns = [
         { name: "#", className: "w-10 text-center" },
@@ -58,9 +71,14 @@ function User() {
                 </h1>
 
                 <div className="space-y-5">
-                    <Button className="inline-flex items-center w-fit gap-2">
-                        <PlusCircle className="w-4 h-4" />
-                        <span>Tambah User</span>
+                    <Button
+                        asChild
+                        className="inline-flex items-center w-fit gap-2"
+                    >
+                        <Link href={route("user.create")}>
+                            <PlusCircle className="w-4 h-4" />
+                            <span>Tambah User</span>
+                        </Link>
                     </Button>
 
                     <PerpageSearch
@@ -142,15 +160,34 @@ function User() {
                                                         <DotsHorizontalIcon className="h-5 w-5" />
                                                     </DropdownMenuTrigger>
                                                     <DropdownMenuContent className="flex flex-col">
-                                                        <DropdownMenuItem className="inline-flex items-center gap-2 w-full">
+                                                        <DropdownMenuItem
+                                                            onClick={() =>
+                                                                onDetail(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="inline-flex items-center gap-2 w-full"
+                                                        >
                                                             <Eye className="h-4 w-4" />
                                                             <span>Detail</span>
                                                         </DropdownMenuItem>
-                                                        <DropdownMenuItem className="inline-flex items-center gap-2 w-full">
+                                                        <DropdownMenuItem
+                                                            onClick={() =>
+                                                                onEdit(item.id)
+                                                            }
+                                                            className="inline-flex items-center gap-2 w-full"
+                                                        >
                                                             <Pencil className="h-4 w-4" />
                                                             <span>Edit</span>
                                                         </DropdownMenuItem>
-                                                        <DropdownMenuItem className="inline-flex items-center gap-2 w-full">
+                                                        <DropdownMenuItem
+                                                            onClick={() =>
+                                                                onDelete(
+                                                                    item.id
+                                                                )
+                                                            }
+                                                            className="inline-flex items-center gap-2 w-full"
+                                                        >
                                                             <Trash2 className="h-4 w-4" />
                                                             <span>Hapus</span>
                                                         </DropdownMenuItem>

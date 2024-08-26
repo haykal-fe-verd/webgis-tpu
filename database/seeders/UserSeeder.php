@@ -17,7 +17,12 @@ class UserSeeder extends Seeder
             'name' => 'Super Admin',
             'email' => 'superadmin@test.com',
             'role' => 'super admin',
+            'id_kabupaten' => 1171,
+            'nama_kabupaten' => 'KOTA BANDA ACEH',
+            'id_kecamatan' => 1171010,
+            'nama_kecamatan' => 'MEURAXA',
         ]);
+
         User::factory()->create([
             'name' => 'Admin TPU',
             'email' => 'admintpu@test.com',
@@ -25,9 +30,9 @@ class UserSeeder extends Seeder
             'id_kabupaten' => 1171,
             'nama_kabupaten' => 'KOTA BANDA ACEH',
             'id_kecamatan' => 1171010,
-            'nama_kecamatan' => 'KECAMATAN MEURAXA',
+            'nama_kecamatan' => 'MEURAXA',
         ]);
 
-        User::factory(30)->create();
+        // User::factory(30)->create();
     }
 }

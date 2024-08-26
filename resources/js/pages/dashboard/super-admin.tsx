@@ -1,20 +1,22 @@
 import React from "react";
-import { Head, usePage } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-import { PageProps } from "@/types";
+import { PageProps, Pemakaman } from "@/types";
 
 import AuthLayout from "@/layouts/auth-layout";
+import { latitude, longitude } from "@/data/center";
 
 interface SuperAdminProps extends PageProps {
     totalAdminTpu: number | null;
     totalTpuAcehBesar: number | null;
     totalTpuBandaAceh: number | null;
+    tpuAdmin: Pemakaman[];
 }
 function SuperAdmin() {
     // hooks
-    const { totalAdminTpu, totalTpuAcehBesar, totalTpuBandaAceh } =
+    const { totalAdminTpu, totalTpuAcehBesar, totalTpuBandaAceh, tpuAdmin } =
         usePage<SuperAdminProps>().props;
 
     // states
@@ -64,7 +66,7 @@ function SuperAdmin() {
 
                         <div className="w-full rounded-lg overflow-hidden">
                             <MapContainer
-                                center={[5.308, 95.584]}
+                                center={[latitude, longitude]}
                                 zoom={9.5}
                                 scrollWheelZoom={true}
                                 style={{
@@ -77,96 +79,89 @@ function SuperAdmin() {
                                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                     url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 />
-                                <Marker position={[5.5293, 95.298]}>
-                                    <Popup>
-                                        <table className="w-[200px] text-[10px]">
-                                            <tbody>
-                                                <tr>
-                                                    <td className="w-[100px]">
-                                                        Kabupaten
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>Kota Banda Aceh</td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="w-[100px]">
-                                                        Luas Wilayah
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        56.17 KM<sup>2</sup>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="w-[100px]">
-                                                        Jumlah Kecamatan
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>9</td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="w-[100px]">
-                                                        Jumlah Desa
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>90</td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="w-[100px]">
-                                                        Jumlah TPU
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>180</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </Popup>
-                                </Marker>
-                                <Marker position={[5.4181, 95.4123]}>
-                                    <Popup>
-                                        <table className="w-[200px] text-[10px]">
-                                            <tbody>
-                                                <tr>
-                                                    <td className="w-[100px]">
-                                                        Kabupaten
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>Aceh Besar</td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="w-[100px]">
-                                                        Luas Wilayah
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        2902.56 KM<sup>2</sup>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="w-[100px]">
-                                                        Jumlah Kecamatan
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>23</td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="w-[100px]">
-                                                        Jumlah Desa
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>604</td>
-                                                </tr>
-                                                <tr>
-                                                    <td className="w-[100px]">
-                                                        Jumlah TPU
-                                                    </td>
-                                                    <td>:</td>
-                                                    <td>1.200</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </Popup>
-                                </Marker>
+                                {tpuAdmin.map((item) => (
+                                    <Marker
+                                        key={item.id}
+                                        position={[
+                                            parseFloat(item.latitude),
+                                            parseFloat(item.longitude),
+                                        ]}
+                                    >
+                                        <Popup>
+                                            <table className="w-[200px] text-[10px]">
+                                                <tbody>
+                                                    <tr>
+                                                        <td className="w-[100px]">
+                                                            Nama TPU
+                                                        </td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            {
+                                                                item.nama_pemakaman
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="w-[100px]">
+                                                            Kabupaten
+                                                        </td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            {
+                                                                item.nama_kabupaten
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="w-[100px]">
+                                                            Kecamatan
+                                                        </td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            {
+                                                                item.nama_kecamatan
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="w-[100px]">
+                                                            Alamat
+                                                        </td>
+                                                        <td>:</td>
+                                                        <td>{item.alamat}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="w-[100px]">
+                                                            Luas
+                                                        </td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            {item.luas} m
+                                                            <sup>2</sup>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="w-[100px]">
+                                                            Detail
+                                                        </td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            <Link
+                                                                href={route(
+                                                                    "tpu.detail",
+                                                                    item.id
+                                                                )}
+                                                                className="text-blue-500 underline"
+                                                            >
+                                                                Lihat
+                                                            </Link>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </Popup>
+                                    </Marker>
+                                ))}
                             </MapContainer>
                         </div>
                     </div>
