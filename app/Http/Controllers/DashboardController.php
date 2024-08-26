@@ -15,8 +15,8 @@ class DashboardController extends Controller
 
         // super admin
         $totalAdminTpu = User::where('role', 'admin tpu')->count();
-        $totalTpuAcehBesar = User::where('id_kabupaten', "1108")->count();
-        $totalTpuBandaAceh = User::where('id_kabupaten', "1171")->count();
+        $totalTpuAcehBesar = Pemakaman::where('id_kabupaten', "1108")->count();
+        $totalTpuBandaAceh = Pemakaman::where('id_kabupaten', "1171")->count();
         $tpuAdmin = Pemakaman::with('user')->get();
 
 

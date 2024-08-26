@@ -24,7 +24,7 @@ function Tutorial() {
 
                     <div
                         className="content"
-                        dangerouslySetInnerHTML={{ __html: isi.isi }}
+                        dangerouslySetInnerHTML={{ __html: isi?.isi }}
                     />
                 </div>
             </section>

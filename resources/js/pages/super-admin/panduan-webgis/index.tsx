@@ -18,7 +18,7 @@ function Index() {
     // hooks
     const { isi } = usePage<IndexProps>().props;
     const { data, setData, post, reset, errors, processing } = useForm({
-        isi: isi.isi ?? "",
+        isi: isi?.isi ?? "",
     });
 
     // states
@@ -29,7 +29,7 @@ function Index() {
         editor.current = sunEditor;
 
         if (editor.current) {
-            editor.current.setContents(data.isi);
+            editor.current.setContents(data?.isi);
         }
     };
 
@@ -44,7 +44,7 @@ function Index() {
 
     React.useEffect(() => {
         if (editor.current) {
-            editor.current.setContents(data.isi);
+            editor.current.setContents(data?.isi);
         }
     }, []);
 
