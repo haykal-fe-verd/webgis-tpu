@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, usePage } from "@inertiajs/react";
 
 import { PageProps } from "@/types";
@@ -7,8 +6,6 @@ import { guestNavigations } from "@/data/navigations";
 import { cn } from "@/lib/utils";
 import GuestMobileNavbar from "@/layouts/partials/guest-mobile-navbar";
 import { Button } from "@/components/ui/button";
-import ThemeColorToggle from "@/components/theme-color-toggle";
-import ThemeModeToggle from "@/components/theme-mode-toggle";
 import { Icons } from "@/components/icons";
 
 function GuestNavbar() {
@@ -44,8 +41,6 @@ function GuestNavbar() {
                             ))}
                         </nav>
                         <div className="flex items-center gap-2">
-                            <ThemeColorToggle />
-                            <ThemeModeToggle />
                             <Button
                                 type="button"
                                 variant="outline"

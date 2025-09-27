@@ -58,6 +58,7 @@ function Tpu() {
         { name: "No Hp PJ", className: "" },
         { name: "Kabupaten", className: "" },
         { name: "Kecamatan", className: "" },
+        { name: "Gampong", className: "" },
         { name: "@", className: "w-20 text-center" },
     ];
 
@@ -137,10 +138,13 @@ function Tpu() {
                                                 {item.user?.phone}
                                             </TableCell>
                                             <TableCell className="">
-                                                {item.user?.nama_kabupaten}
+                                                {item.nama_kabupaten}
                                             </TableCell>
                                             <TableCell className="">
-                                                {item.user?.nama_kecamatan}
+                                                {item.nama_kecamatan}
+                                            </TableCell>
+                                            <TableCell className="">
+                                                {item.nama_gampong}
                                             </TableCell>
 
                                             <TableCell className="text-center">

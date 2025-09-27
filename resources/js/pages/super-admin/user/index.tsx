@@ -57,6 +57,7 @@ function User() {
         { name: "No Hp", className: "" },
         { name: "Kabupaten", className: "" },
         { name: "Kecamatan", className: "" },
+        { name: "Gampong", className: "" },
         { name: "Role", className: "" },
         { name: "@", className: "w-20 text-center" },
     ];
@@ -141,6 +142,9 @@ function User() {
                                             </TableCell>
                                             <TableCell className="">
                                                 {item.nama_kecamatan}
+                                            </TableCell>
+                                            <TableCell className="">
+                                                {item.nama_gampong}
                                             </TableCell>
                                             <TableCell className="">
                                                 <Badge

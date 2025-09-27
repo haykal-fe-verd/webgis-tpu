@@ -67,39 +67,10 @@ function DaftarTpuDetail() {
                                         {pemakaman.luas} m<sup>2</sup>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td className="w-[200px]">
-                                        Sisa Pemakaman
-                                    </td>
-                                    <td>:</td>
-                                    <td>
-                                        {hitungSisaPemakaman(
-                                            pemakaman.kapasitas,
-                                            pemakaman.terpakai
-                                        )}
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
-                        <Button
-                            disabled={
-                                hitungSisaPemakaman(
-                                    pemakaman.kapasitas,
-                                    pemakaman.terpakai
-                                ) === 0
-                            }
-                            className="w-fit"
-                            asChild
-                        >
-                            <Link
-                                href={route("booking-tpu", pemakaman.id)}
-                                disabled={
-                                    hitungSisaPemakaman(
-                                        pemakaman.kapasitas,
-                                        pemakaman.terpakai
-                                    ) === 0
-                                }
-                            >
+                        <Button className="w-fit" asChild>
+                            <Link href={route("booking-tpu", pemakaman.id)}>
                                 Booking TPU
                             </Link>
                         </Button>
@@ -159,6 +130,15 @@ function DaftarTpuDetail() {
                                                         {
                                                             pemakaman.nama_kecamatan
                                                         }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td className="w-[100px]">
+                                                        Gampong
+                                                    </td>
+                                                    <td>:</td>
+                                                    <td>
+                                                        {pemakaman.nama_gampong}
                                                     </td>
                                                 </tr>
                                                 <tr>

@@ -25,8 +25,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { LogOut, User } from "lucide-react";
 import { GearIcon } from "@radix-ui/react-icons";
-import ThemeModeToggle from "@/components/theme-mode-toggle";
-import ThemeColorToggle from "@/components/theme-color-toggle";
 import AuthMobileSidebar from "./auth-mobile-sidebar";
 
 function AuthTopbar() {
@@ -42,9 +40,10 @@ function AuthTopbar() {
     return (
         <header className="bg-card text-card-foreground border-b border-border px-5 py-3 flex items-center justify-between text-nowrap flex-nowrap">
             <AuthMobileSidebar />
-            <div className="items-center justify-end flex w-full space-x-5">
-                <ThemeColorToggle />
-                <ThemeModeToggle />
+            <div className="items-center justify-end flex w-full space-x-3">
+                <div className="text-sm font-semibold uppercase">
+                    Gampong {user?.nama_gampong}
+                </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger>
                         <div className={cn("flex items-center gap-3")}>

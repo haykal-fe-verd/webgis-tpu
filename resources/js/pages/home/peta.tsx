@@ -21,7 +21,12 @@ function Peta() {
 
             <section id="peta" className="py-5 space-y-5 container">
                 <div>
-                    <h1 className="text-2xl font-bold text-center">Peta</h1>
+                    <h1 className="text-2xl font-bold text-center">
+                        Peta Persebaran TPU
+                    </h1>
+                    <h2 className="text-xl text-center font-semibold">
+                        Kota Banda Aceh & Kabupaten Aceh Besar
+                    </h2>
                 </div>
 
                 <div className="w-full h-full">

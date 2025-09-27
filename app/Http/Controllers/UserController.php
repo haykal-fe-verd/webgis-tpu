@@ -48,8 +48,10 @@ class UserController extends Controller
             'phone' => ['required', 'string', 'max:255'],
             'nama_kabupaten' => ['required', 'string', 'max:255'],
             'nama_kecamatan' => ['required', 'string', 'max:255'],
+            'nama_gampong' => ['required', 'string', 'max:255'],
             'id_kabupaten' => ['required', 'string', 'max:255'],
             'id_kecamatan' => ['required', 'string', 'max:255'],
+            'id_gampong' => ['required', 'string', 'max:255'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
@@ -69,8 +71,10 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->id_kabupaten = $request->id_kabupaten;
         $user->id_kecamatan = $request->id_kecamatan;
+        $user->id_gampong = $request->id_gampong;
         $user->nama_kabupaten = $request->nama_kabupaten;
         $user->nama_kecamatan = $request->nama_kecamatan;
+        $user->nama_gampong = $request->nama_gampong;
         $user->email_verified_at = now();
         $user->save();
 
@@ -113,8 +117,10 @@ class UserController extends Controller
             'phone' => ['required', 'string', 'max:255'],
             'nama_kabupaten' => ['required', 'string', 'max:255'],
             'nama_kecamatan' => ['required', 'string', 'max:255'],
+            'nama_gampong' => ['required', 'string', 'max:255'],
             'id_kabupaten' => ['required', 'string', 'max:255'],
             'id_kecamatan' => ['required', 'string', 'max:255'],
+            'id_gampong' => ['required', 'string', 'max:255'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
@@ -143,8 +149,10 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->id_kabupaten = $request->id_kabupaten;
         $user->id_kecamatan = $request->id_kecamatan;
+        $user->id_gampong = $request->id_gampong;
         $user->nama_kabupaten = $request->nama_kabupaten;
         $user->nama_kecamatan = $request->nama_kecamatan;
+        $user->nama_gampong = $request->nama_gampong;
         $user->save();
 
         return redirect()->route('user.index')->with('success', 'User Berhasil diperbarui');

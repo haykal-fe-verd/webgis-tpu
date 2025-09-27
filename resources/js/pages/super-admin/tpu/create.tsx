@@ -12,7 +12,7 @@ import { EditControl } from "react-leaflet-draw";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
 
-import { PageProps, User } from "@/types";
+import { GampongResponse, KecamatanResponse, PageProps, User } from "@/types";
 
 import AuthLayout from "@/layouts/auth-layout";
 import { Label } from "@/components/ui/label";
@@ -35,6 +35,14 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface CreateTpuProps extends PageProps {
     users: User[];
@@ -49,9 +57,10 @@ function CreateTpu() {
         id_kecamatan: "",
         nama_kecamatan: "",
         nama_pemakaman: "",
+        id_gampong: "",
+        nama_gampong: "",
         luas: 0,
         kapasitas: 0,
-        terpakai: 0,
         alamat: "",
         image: "" as any,
         latitude: "",
@@ -68,6 +77,8 @@ function CreateTpu() {
     const [markerPosition, setMarkerPosition] = React.useState<
         [number, number] | null
     >(null);
+    const [kecamatan, setKecamatan] = React.useState<KecamatanResponse[]>([]);
+    const [gampong, setGampong] = React.useState<GampongResponse[]>([]);
 
     // events
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,13 +100,50 @@ function CreateTpu() {
         setData((prev) => ({
             ...prev,
             id_user: item.id as unknown as string,
-            id_kabupaten: item.id_kabupaten as unknown as string,
-            id_kecamatan: item.id_kecamatan as unknown as string,
-            nama_kabupaten: item.nama_kabupaten as unknown as string,
-            nama_kecamatan: item.nama_kecamatan as unknown as string,
+            // id_kabupaten: item.id_kabupaten as unknown as string,
+            // id_kecamatan: item.id_kecamatan as unknown as string,
+            // id_gampong: item.id_gampong as unknown as string,
+            // nama_kabupaten: item.nama_kabupaten as unknown as string,
+            // nama_kecamatan: item.nama_kecamatan as unknown as string,
+            // nama_gampong: item.nama_gampong as unknown as string,
         }));
         setOpen(false);
     };
+
+    const onChangeKabupaten = async (e: string) => {
+        const [kode, namaKota] = e.split("-");
+
+        setData((prev) => ({
+            ...prev,
+            id_kabupaten: kode,
+            nama_kabupaten: namaKota,
+        }));
+
+        await getKecamatan(kode);
+    };
+
+    const onChangeKecamatan = async (e: string) => {
+        const [kode, namaKec] = e.split("-");
+
+        setData((prev) => ({
+            ...prev,
+            id_kecamatan: kode,
+            nama_kecamatan: namaKec,
+        }));
+
+        await getGampong(kode);
+    };
+
+    const onChangeGampong = async (e: string) => {
+        const [kode, namaGampong] = e.split("-");
+
+        setData((prev) => ({
+            ...prev,
+            id_gampong: kode,
+            nama_gampong: namaGampong,
+        }));
+    };
+
     const onCreated = (e: any) => {
         const { layer } = e;
         const { lat, lng } = layer.getLatLng();
@@ -129,6 +177,22 @@ function CreateTpu() {
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         post(route("tpu.store"));
+    };
+
+    const getKecamatan = async (id: string) => {
+        await fetch(
+            `https://www.emsifa.com/api-wilayah-indonesia/api/districts/${id}.json`
+        )
+            .then((response) => response.json())
+            .then((districts: KecamatanResponse[]) => setKecamatan(districts));
+    };
+
+    const getGampong = async (id: string) => {
+        await fetch(
+            `https://www.emsifa.com/api-wilayah-indonesia/api/villages/${id}.json`
+        )
+            .then((response) => response.json())
+            .then((villages: GampongResponse[]) => setGampong(villages));
     };
 
     // mounted
@@ -237,29 +301,6 @@ function CreateTpu() {
                                 </div>
 
                                 <div className="w-full">
-                                    <Label htmlFor="terpakai">Terpakai</Label>
-                                    <div className="relative">
-                                        <Input
-                                            type="number"
-                                            min={0}
-                                            id="terpakai"
-                                            name="terpakai"
-                                            value={data.terpakai}
-                                            onChange={(e) =>
-                                                setData(
-                                                    "terpakai",
-                                                    parseInt(e.target.value)
-                                                )
-                                            }
-                                        />
-                                        <div className="absolute inset-y-0 right-0 rounded-r-md px-3 pl-3 flex items-center pointer-events-none bg-primary text-primary-foreground">
-                                            Orang
-                                        </div>
-                                    </div>
-                                    <InputError message={errors.terpakai} />
-                                </div>
-
-                                <div className="w-full">
                                     <Label htmlFor="alamat">Alamat</Label>
                                     <Textarea
                                         id="alamat"
@@ -339,35 +380,94 @@ function CreateTpu() {
                                 </div>
 
                                 <div className="w-full">
-                                    <Label htmlFor="nama_kabupaten">
-                                        Nama Kabupaten
+                                    <Label htmlFor="id_kabupaten">
+                                        Kabupaten
                                     </Label>
-                                    <Input
-                                        disabled
-                                        type="text"
-                                        id="nama_kabupaten"
-                                        name="nama_kabupaten"
-                                        value={data.nama_kabupaten}
-                                    />
-                                    <InputError
-                                        message={errors.nama_kabupaten}
-                                    />
+                                    <Select
+                                        onValueChange={onChangeKabupaten}
+                                        defaultValue={data.id_kabupaten}
+                                    >
+                                        <SelectTrigger
+                                            className="w-full"
+                                            id="id_kabupaten"
+                                            name="id_kabupaten"
+                                        >
+                                            <SelectValue placeholder="Pilih Kabupaten..." />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="1171-KOTA BANDA ACEH">
+                                                KOTA BANDA ACEH
+                                            </SelectItem>
+                                            <SelectItem value="1108-KABUPATEN ACEH BESAR">
+                                                KABUPATEN ACEH BESAR
+                                            </SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    <InputError message={errors.id_kabupaten} />
                                 </div>
 
                                 <div className="w-full">
-                                    <Label htmlFor="nama_kecamatan">
-                                        Nama Kecamatan
+                                    <Label htmlFor="id_kecamatan">
+                                        Kecamatan
                                     </Label>
-                                    <Input
-                                        disabled
-                                        type="text"
-                                        id="nama_kecamatan"
-                                        name="nama_kecamatan"
-                                        value={data.nama_kecamatan}
-                                    />
-                                    <InputError
-                                        message={errors.nama_kecamatan}
-                                    />
+                                    <Select
+                                        onValueChange={onChangeKecamatan}
+                                        defaultValue={data.id_kecamatan}
+                                    >
+                                        <SelectTrigger
+                                            className="w-full"
+                                            id="id_kecamatan"
+                                            name="id_kecamatan"
+                                            disabled={kecamatan.length <= 0}
+                                        >
+                                            <SelectValue placeholder="Pilih Kecamatan..." />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <ScrollArea className="h-60">
+                                                {kecamatan?.map(
+                                                    (item, index) => (
+                                                        <SelectItem
+                                                            key={index}
+                                                            value={`${item.id}-${item.name}`}
+                                                        >
+                                                            {item.name}
+                                                        </SelectItem>
+                                                    )
+                                                )}
+                                            </ScrollArea>
+                                        </SelectContent>
+                                    </Select>
+                                    <InputError message={errors.id_kecamatan} />
+                                </div>
+
+                                <div className="w-full">
+                                    <Label htmlFor="id_gampong">Gampong</Label>
+                                    <Select
+                                        onValueChange={onChangeGampong}
+                                        defaultValue={data.id_gampong}
+                                    >
+                                        <SelectTrigger
+                                            className="w-full"
+                                            id="id_gampong"
+                                            name="id_gampong"
+                                            disabled={gampong.length <= 0}
+                                        >
+                                            <SelectValue placeholder="Pilih Gampong..." />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <ScrollArea className="h-60">
+                                                {gampong?.map((item, index) => (
+                                                    <SelectItem
+                                                        key={index}
+                                                        value={`${item.id}-${item.name}`}
+                                                    >
+                                                        {item.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </ScrollArea>
+                                        </SelectContent>
+                                    </Select>
+                                    <InputError message={errors.id_gampong} />
                                 </div>
                             </div>
                         </div>

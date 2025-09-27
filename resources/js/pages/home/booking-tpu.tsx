@@ -110,6 +110,14 @@ function BookingTpu() {
                                         <InputError message={errors.hp} />
                                     </div>
 
+                                    <p className="text-sm">
+                                        <span className="text-destructive">
+                                            *Note
+                                        </span>{" "}
+                                        : Untuk booking lahan TPU wajib
+                                        mendaftar ke P3F Gampong
+                                    </p>
+
                                     <Button
                                         disabled={processing}
                                         className="inline-flex gap-2 items-center w-fit"
@@ -117,7 +125,7 @@ function BookingTpu() {
                                         {processing && (
                                             <Loader2 className="w-4 h-4 animate-spin" />
                                         )}
-                                        <span>Booking TPU</span>
+                                        <span>Daftar P3F Gampong</span>
                                     </Button>
                                 </form>
                             </CardContent>

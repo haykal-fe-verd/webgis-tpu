@@ -9,6 +9,8 @@ export interface User {
     nama_kabupaten?: string;
     id_kecamatan?: string;
     nama_kecamatan?: string;
+    id_gampong?: string;
+    nama_gampong?: string;
     email_verified_at: string;
 }
 
@@ -53,6 +55,12 @@ export interface KecamatanResponse {
     name: string;
 }
 
+export interface GampongResponse {
+    id: string;
+    district_id: string;
+    name: string;
+}
+
 export interface Link {
     url: string | null;
     label: string;
@@ -83,9 +91,10 @@ export interface Pemakaman {
     nama_kabupaten: string;
     id_kecamatan: string;
     nama_kecamatan: string;
+    id_gampong: string;
+    nama_gampong: string;
     luas: number;
     kapasitas: number;
-    terpakai: number;
     alamat: string;
     image?: any;
     latitude: string;

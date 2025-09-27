@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('nama_kabupaten')->nullable();
             $table->string('id_kecamatan')->nullable();
             $table->string('nama_kecamatan')->nullable();
+            $table->string('id_gampong')->nullable();
+            $table->string('nama_gampong')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

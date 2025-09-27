@@ -21,15 +21,18 @@ class HomeController extends Controller
     {
         $query = Pemakaman::query()->latest();
 
-        if ($request->has('kabupaten') || $request->has('kecamatan')) {
+        if ($request->has('kabupaten') || $request->has('kecamatan') || $request->has('gampong')) {
             $kabupaten = $request->kabupaten;
             $kecamatan = $request->kecamatan;
+            $gampong = $request->gampong;
 
             $query
                 ->where('is_approved', 1)
                 ->where('id_kabupaten', $kabupaten)
-                ->where('id_kecamatan', $kecamatan);
+                ->where('id_kecamatan', $kecamatan)
+                ->where('id_gampong', $gampong);
         }
+
 
         $pemakaman = $query->paginate(12)->appends($request->all());
 

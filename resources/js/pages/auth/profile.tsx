@@ -30,6 +30,8 @@ function Profile() {
         nama_kabupaten: user?.nama_kabupaten,
         id_kecamatan: user?.id_kecamatan,
         nama_kecamatan: user?.nama_kecamatan,
+        id_gampong: user?.id_gampong,
+        nama_gampong: user?.nama_gampong,
     });
 
     // states
@@ -195,6 +197,21 @@ function Profile() {
                                 disabled
                             />
                             <InputError message={errors.nama_kecamatan} />
+                        </div>
+
+                        <div className="col-span-2 lg:col-span-1">
+                            <Label htmlFor="nama_gampong">Gampong</Label>
+                            <Input
+                                type="text"
+                                id="nama_gampong"
+                                name="nama_gampong"
+                                value={data.nama_gampong}
+                                onChange={(e) =>
+                                    setData("nama_gampong", e.target.value)
+                                }
+                                disabled
+                            />
+                            <InputError message={errors.nama_gampong} />
                         </div>
 
                         <Button

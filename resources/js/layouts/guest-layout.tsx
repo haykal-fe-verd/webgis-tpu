@@ -10,7 +10,6 @@ import { useToast } from "@/components/ui/use-toast";
 
 import GuestNavbar from "@/layouts/partials/guest-navbar";
 import GuestFooter from "@/layouts/partials/guest-footer";
-import ThemeDataProvider from "@/components/theme-data-provider";
 
 function GuestLayout({ children }: PropsWithChildren) {
     // hooks
@@ -44,22 +43,20 @@ function GuestLayout({ children }: PropsWithChildren) {
     return (
         <NextThemesProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
         >
-            <ThemeDataProvider>
-                <main>
-                    <GuestNavbar />
-                    <div>
-                        {children}
-                        <GuestFooter />
-                    </div>
+            <main>
+                <GuestNavbar />
+                <div>
+                    {children}
+                    <GuestFooter />
+                </div>
 
-                    <Toaster />
-                    <SonnerToaster />
-                </main>
-            </ThemeDataProvider>
+                <Toaster />
+                <SonnerToaster />
+            </main>
         </NextThemesProvider>
     );
 }

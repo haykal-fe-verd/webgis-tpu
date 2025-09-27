@@ -55,7 +55,6 @@ function KelolaTpu() {
         { name: "Nama Pemakaman", className: "" },
         { name: "Luas", className: "" },
         { name: "Kapasitas", className: "" },
-        { name: "Terpakai", className: "" },
         { name: "Alamat", className: "" },
         { name: "Status", className: "" },
         { name: "@", className: "w-20 text-center" },
@@ -132,9 +131,6 @@ function KelolaTpu() {
                                             </TableCell>
                                             <TableCell className="">
                                                 {item.kapasitas}
-                                            </TableCell>
-                                            <TableCell className="">
-                                                {item.terpakai}
                                             </TableCell>
                                             <TableCell className="text-nowrap">
                                                 {item.alamat}

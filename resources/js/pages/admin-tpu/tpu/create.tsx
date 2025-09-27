@@ -34,7 +34,6 @@ function CreateKelolaTpu() {
         nama_pemakaman: "",
         luas: 0,
         kapasitas: 0,
-        terpakai: 0,
         alamat: "",
         image: "" as any,
         latitude: "",
@@ -196,29 +195,6 @@ function CreateKelolaTpu() {
                                     </div>
                                 </div>
                                 <InputError message={errors.kapasitas} />
-                            </div>
-
-                            <div className="w-full">
-                                <Label htmlFor="terpakai">Terpakai</Label>
-                                <div className="relative">
-                                    <Input
-                                        type="number"
-                                        min={0}
-                                        id="terpakai"
-                                        name="terpakai"
-                                        value={data.terpakai}
-                                        onChange={(e) =>
-                                            setData(
-                                                "terpakai",
-                                                parseInt(e.target.value)
-                                            )
-                                        }
-                                    />
-                                    <div className="absolute inset-y-0 right-0 rounded-r-md px-3 pl-3 flex items-center pointer-events-none bg-primary text-primary-foreground">
-                                        Orang
-                                    </div>
-                                </div>
-                                <InputError message={errors.terpakai} />
                             </div>
 
                             <div className="w-full">

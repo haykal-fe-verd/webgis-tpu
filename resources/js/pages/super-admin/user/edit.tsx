@@ -1,7 +1,7 @@
 import React from "react";
 import { ChevronLeft, Eye, EyeOff, Loader2 } from "lucide-react";
 
-import { KecamatanResponse, PageProps, User } from "@/types";
+import { GampongResponse, KecamatanResponse, PageProps, User } from "@/types";
 
 import AuthLayout from "@/layouts/auth-layout";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
@@ -36,6 +36,8 @@ function Edit() {
         nama_kabupaten: pengguna.nama_kabupaten,
         id_kecamatan: pengguna.id_kecamatan,
         nama_kecamatan: pengguna.nama_kecamatan,
+        id_gampong: pengguna.id_gampong,
+        nama_gampong: pengguna.nama_gampong,
         image: "" as any,
     });
 
@@ -44,12 +46,16 @@ function Edit() {
     const [showPasswordConfirm, setShowPasswordConfirm] =
         React.useState<boolean>(false);
     const [kecamatan, setKecamatan] = React.useState<KecamatanResponse[]>([]);
+    const [gampong, setGampong] = React.useState<GampongResponse[]>([]);
     const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
     const [valueKabupaten, setValueKabupaten] = React.useState<string>(
         `${pengguna.id_kabupaten}-${pengguna.nama_kabupaten}`
     );
     const [valueKecamatan, setValueKecamatan] = React.useState<string>(
         `${pengguna.id_kecamatan}-${pengguna.nama_kecamatan}`
+    );
+    const [valueGampong, setValueGampong] = React.useState<string>(
+        `${pengguna.id_gampong}-${pengguna.nama_gampong}`
     );
 
     // events
@@ -92,6 +98,18 @@ function Edit() {
             id_kecamatan: kode,
             nama_kecamatan: namaKec,
         }));
+
+        await getGampong(kode);
+    };
+
+    const onChangeGampong = async (e: string) => {
+        const [kode, namaGampong] = e.split("-");
+
+        setData((prev) => ({
+            ...prev,
+            id_gampong: kode,
+            nama_gampong: namaGampong,
+        }));
     };
 
     const getKecamatan = async (id: string) => {
@@ -102,14 +120,25 @@ function Edit() {
             .then((districts: KecamatanResponse[]) => setKecamatan(districts));
     };
 
+    const getGampong = async (id: string) => {
+        await fetch(
+            `https://www.emsifa.com/api-wilayah-indonesia/api/villages/${id}.json`
+        )
+            .then((response) => response.json())
+            .then((villages: GampongResponse[]) => setGampong(villages));
+    };
+
     React.useEffect(() => {
         getKecamatan(pengguna.id_kabupaten!);
+        getGampong(pengguna.id_kecamatan!);
+
         setValueKabupaten(
             `${pengguna.id_kabupaten}-${pengguna.nama_kabupaten}`
         );
         setValueKecamatan(
             `${pengguna.id_kecamatan}-${pengguna.nama_kecamatan}`
         );
+        setValueGampong(`${pengguna.id_gampong}-${pengguna.nama_gampong}`);
     }, []);
 
     return (
@@ -316,6 +345,36 @@ function Edit() {
                             </SelectContent>
                         </Select>
                         <InputError message={errors.id_kecamatan} />
+                    </div>
+
+                    <div className="w-full">
+                        <Label htmlFor="id_gampong">Gampong</Label>
+                        <Select
+                            onValueChange={onChangeGampong}
+                            defaultValue={valueGampong}
+                        >
+                            <SelectTrigger
+                                className="w-full"
+                                id="id_gampong"
+                                name="id_gampong"
+                                disabled={gampong.length <= 0}
+                            >
+                                <SelectValue placeholder="Pilih Gampong..." />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <ScrollArea className="h-60">
+                                    {gampong?.map((item, index) => (
+                                        <SelectItem
+                                            key={index}
+                                            value={`${item.id}-${item.name}`}
+                                        >
+                                            {item.name}
+                                        </SelectItem>
+                                    ))}
+                                </ScrollArea>
+                            </SelectContent>
+                        </Select>
+                        <InputError message={errors.id_gampong} />
                     </div>
 
                     <div className="w-full">

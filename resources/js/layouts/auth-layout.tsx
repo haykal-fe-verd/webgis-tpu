@@ -7,7 +7,6 @@ import { PageProps } from "@/types";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
-import ThemeDataProvider from "@/components/theme-data-provider";
 import AuthSidebar from "@/layouts/partials/auth-sidebar";
 import AuthTopbar from "@/layouts/partials/auth-topbar";
 
@@ -47,19 +46,17 @@ function AuthLayout({ children }: React.PropsWithChildren) {
             enableSystem
             disableTransitionOnChange
         >
-            <ThemeDataProvider>
-                <div className="relative h-full">
-                    <div className="hidden h-full lg:flex lg:w-72 lg:flex-col lg:fixed lg:inset-y-0 z-[50]">
-                        <AuthSidebar />
-                    </div>
-                    <main className="lg:pl-72">
-                        <AuthTopbar />
-                        <div className="m-5">{children}</div>
-                        <Toaster />
-                        <SonnerToaster />
-                    </main>
+            <div className="relative h-full">
+                <div className="hidden h-full lg:flex lg:w-72 lg:flex-col lg:fixed lg:inset-y-0 z-[50]">
+                    <AuthSidebar />
                 </div>
-            </ThemeDataProvider>
+                <main className="lg:pl-72">
+                    <AuthTopbar />
+                    <div className="m-5">{children}</div>
+                    <Toaster />
+                    <SonnerToaster />
+                </main>
+            </div>
         </NextThemesProvider>
     );
 }

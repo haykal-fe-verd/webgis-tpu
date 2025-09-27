@@ -40,11 +40,13 @@ class UserFactory extends Factory
             'remember_token' => Str::random(10),
             'role' => fake()->randomElement(['super admin', 'admin tpu']),
             'phone' => fake()->phoneNumber(),
-            'image' => fake()->imageUrl(),
+            'image' => "https://picsum.photos/800/600",
             "id_kabupaten" => $idKabupaten,
             "nama_kabupaten" => $namaKabupaten,
             "id_kecamatan" => fake()->numberBetween(1108010, 1171041),
-            "nama_kecamatan" => "KECAMATAN TEST",
+            "nama_kecamatan" => "KECAMATAN TEST " . $namaKabupaten,
+            "id_gampong" => fake()->numberBetween(1108010001, 1171041001),
+            "nama_gampong" => "GAMPONG TEST " . $namaKabupaten,
         ];
     }
 

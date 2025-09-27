@@ -14,7 +14,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { KecamatanResponse } from "@/types";
+import { GampongResponse, KecamatanResponse } from "@/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 function Create() {
@@ -29,6 +29,8 @@ function Create() {
         nama_kabupaten: "",
         id_kecamatan: "",
         nama_kecamatan: "",
+        id_gampong: "",
+        nama_gampong: "",
         image: "" as any,
         password_confirmation: "",
     });
@@ -38,6 +40,7 @@ function Create() {
     const [showPasswordConfirm, setShowPasswordConfirm] =
         React.useState<boolean>(false);
     const [kecamatan, setKecamatan] = React.useState<KecamatanResponse[]>([]);
+    const [gampong, setGampong] = React.useState<GampongResponse[]>([]);
     const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
 
     // events
@@ -54,6 +57,7 @@ function Create() {
             setPreviewUrl(null);
         }
     };
+
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         post(route("user.store"));
@@ -79,6 +83,18 @@ function Create() {
             id_kecamatan: kode,
             nama_kecamatan: namaKec,
         }));
+
+        await getGampong(kode);
+    };
+
+    const onChangeGampong = async (e: string) => {
+        const [kode, namaGampong] = e.split("-");
+
+        setData((prev) => ({
+            ...prev,
+            id_gampong: kode,
+            nama_gampong: namaGampong,
+        }));
     };
 
     const getKecamatan = async (id: string) => {
@@ -87,6 +103,14 @@ function Create() {
         )
             .then((response) => response.json())
             .then((districts: KecamatanResponse[]) => setKecamatan(districts));
+    };
+
+    const getGampong = async (id: string) => {
+        await fetch(
+            `https://www.emsifa.com/api-wilayah-indonesia/api/villages/${id}.json`
+        )
+            .then((response) => response.json())
+            .then((villages: GampongResponse[]) => setGampong(villages));
     };
 
     return (
@@ -295,6 +319,36 @@ function Create() {
                             </SelectContent>
                         </Select>
                         <InputError message={errors.id_kecamatan} />
+                    </div>
+
+                    <div className="w-full">
+                        <Label htmlFor="id_gampong">Gampong</Label>
+                        <Select
+                            onValueChange={onChangeGampong}
+                            defaultValue={data.id_gampong}
+                        >
+                            <SelectTrigger
+                                className="w-full"
+                                id="id_gampong"
+                                name="id_gampong"
+                                disabled={gampong.length <= 0}
+                            >
+                                <SelectValue placeholder="Pilih Gampong..." />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <ScrollArea className="h-60">
+                                    {gampong?.map((item, index) => (
+                                        <SelectItem
+                                            key={index}
+                                            value={`${item.id}-${item.name}`}
+                                        >
+                                            {item.name}
+                                        </SelectItem>
+                                    ))}
+                                </ScrollArea>
+                            </SelectContent>
+                        </Select>
+                        <InputError message={errors.id_gampong} />
                     </div>
 
                     <div className="w-full">

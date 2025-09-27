@@ -105,6 +105,12 @@ function Detail() {
                                 </TableRow>
                                 <TableRow>
                                     <TableCell className="w-[300px]">
+                                        Gampong
+                                    </TableCell>
+                                    <TableCell>: {tpu.nama_gampong}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell className="w-[300px]">
                                         Luas
                                     </TableCell>
                                     <TableCell>
@@ -117,24 +123,7 @@ function Detail() {
                                     </TableCell>
                                     <TableCell>: {tpu.kapasitas}</TableCell>
                                 </TableRow>
-                                <TableRow>
-                                    <TableCell className="w-[300px]">
-                                        Terpakai
-                                    </TableCell>
-                                    <TableCell>: {tpu.terpakai}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell className="w-[300px]">
-                                        Sisa
-                                    </TableCell>
-                                    <TableCell>
-                                        :{" "}
-                                        {hitungSisaPemakaman(
-                                            tpu.kapasitas,
-                                            tpu.terpakai
-                                        )}
-                                    </TableCell>
-                                </TableRow>
+
                                 <TableRow>
                                     <TableCell className="w-[300px]">
                                         Status

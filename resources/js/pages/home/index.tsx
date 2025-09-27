@@ -23,7 +23,7 @@ function Home() {
                 <div className="relative w-full h-full">
                     <div className="bg-black/40 absolute inset-0" />
                     <img
-                        src="/images/hero.png"
+                        src="/images/hero.jpeg"
                         alt="hero"
                         className="w-full h-full object-cover pointer-events-none"
                     />
@@ -122,6 +122,15 @@ function Home() {
                                                             {
                                                                 item.nama_kecamatan
                                                             }
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td className="w-[100px]">
+                                                            Gampong
+                                                        </td>
+                                                        <td>:</td>
+                                                        <td>
+                                                            {item.nama_gampong}
                                                         </td>
                                                     </tr>
                                                     <tr>

@@ -20,9 +20,10 @@ return new class extends Migration
             $table->string('nama_kabupaten');
             $table->string('id_kecamatan');
             $table->string('nama_kecamatan');
+            $table->string('id_gampong');
+            $table->string('nama_gampong');
             $table->integer('luas');
             $table->integer('kapasitas');
-            $table->integer('terpakai');
             $table->text('alamat');
             $table->string('image')->nullable();
             $table->string('latitude');

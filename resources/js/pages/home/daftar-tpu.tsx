@@ -1,7 +1,12 @@
 import React from "react";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
 
-import { KecamatanResponse, PageProps, PemakamanResponse } from "@/types";
+import {
+    GampongResponse,
+    KecamatanResponse,
+    PageProps,
+    PemakamanResponse,
+} from "@/types";
 
 import { hitungSisaPemakaman } from "@/lib/utils";
 import GuestLayout from "@/layouts/guest-layout";
@@ -31,6 +36,8 @@ function DaftarTpu() {
     const [idKabupaten, setIdKabupaten] = React.useState<string>("");
     const [idKecamatan, setIdKecamatan] = React.useState<string>("");
     const [kecamatan, setKecamatan] = React.useState<KecamatanResponse[]>([]);
+    const [idGampong, setIdGampong] = React.useState<string>("");
+    const [gampong, setGampong] = React.useState<GampongResponse[]>([]);
 
     // events
     const onChangeKabupaten = async (e: string) => {
@@ -40,6 +47,11 @@ function DaftarTpu() {
 
     const onChangeKecamatan = async (e: string) => {
         setIdKecamatan(e);
+        await getGampong(e);
+    };
+
+    const onChangeGampong = async (e: string) => {
+        setIdGampong(e);
     };
 
     const onCari = async () => {
@@ -47,6 +59,7 @@ function DaftarTpu() {
             route("daftar-tpu", {
                 kabupaten: idKabupaten,
                 kecamatan: idKecamatan,
+                gampong: idGampong,
             })
         );
     };
@@ -57,6 +70,14 @@ function DaftarTpu() {
         )
             .then((response) => response.json())
             .then((districts: KecamatanResponse[]) => setKecamatan(districts));
+    };
+
+    const getGampong = async (id: string) => {
+        await fetch(
+            `https://www.emsifa.com/api-wilayah-indonesia/api/villages/${id}.json`
+        )
+            .then((response) => response.json())
+            .then((villages: GampongResponse[]) => setGampong(villages));
     };
 
     return (
@@ -102,14 +123,40 @@ function DaftarTpu() {
                             </SelectContent>
                         </Select>
 
-                        <Button type="button" onClick={onCari}>
+                        <Select onValueChange={onChangeGampong}>
+                            <SelectTrigger
+                                className="w-1/4"
+                                disabled={!idKecamatan || gampong.length <= 0}
+                            >
+                                <SelectValue placeholder="Gampong" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <ScrollArea className="h-60">
+                                    {gampong?.map((item, index) => (
+                                        <SelectItem key={index} value={item.id}>
+                                            {item.name}
+                                        </SelectItem>
+                                    ))}
+                                </ScrollArea>
+                            </SelectContent>
+                        </Select>
+
+                        <Button
+                            type="button"
+                            disabled={
+                                !idKabupaten || !idKecamatan || !idGampong
+                            }
+                            onClick={onCari}
+                        >
                             Cari
                         </Button>
                     </div>
 
                     <div className="w-full grid grid-cols-4 gap-5">
                         {pemakaman?.data?.length <= 0 ? (
-                            <p>Data tidak ditemukan.</p>
+                            <p className="col-span-4 font-semibold text-center">
+                                Data tidak ditemukan.
+                            </p>
                         ) : (
                             pemakaman?.data?.map((item, index) => (
                                 <div
@@ -133,15 +180,8 @@ function DaftarTpu() {
                                                         {item.alamat}
                                                     </h2>
                                                     <h3 className="text-xs text-muted-foreground">
-                                                        {`${item.nama_kabupaten}, ${item.nama_kecamatan}`}
+                                                        {`${item.nama_kabupaten}, ${item.nama_kecamatan}, ${item.nama_gampong}`}
                                                     </h3>
-                                                    <p className="text-xs font-semibold mt-2">
-                                                        {hitungSisaPemakaman(
-                                                            item.kapasitas,
-                                                            item.terpakai
-                                                        )}{" "}
-                                                        Tersisa
-                                                    </p>
                                                 </div>
 
                                                 <Button

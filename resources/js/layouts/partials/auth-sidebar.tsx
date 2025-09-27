@@ -5,6 +5,8 @@ import { PageProps } from "@/types";
 import { authNavigations } from "@/data/navigations";
 import { cn } from "@/lib/utils";
 
+type RoleType = "super admin" | "admin tpu";
+
 function AuthSidebar() {
     // hooks
     const { ziggy, user } = usePage<PageProps>().props;
@@ -12,7 +14,7 @@ function AuthSidebar() {
     // states
     const role = user?.role;
     const filteredNavigations = authNavigations.filter(
-        (item) => !item.roles || item.roles.includes(role)
+        (item) => !item.roles || item.roles.includes(role as RoleType)
     );
 
     return (

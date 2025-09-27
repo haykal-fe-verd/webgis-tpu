@@ -11,14 +11,12 @@ import { latitude, longitude } from "@/data/center";
 interface AdminTpuProps extends PageProps {
     totalTpu: number | null;
     totalKapasitas: number | null;
-    sisaPemakaman: number | null;
     tpu: Pemakaman[];
 }
 
 function AdminTpu() {
     // hooks
-    const { totalTpu, totalKapasitas, sisaPemakaman, tpu } =
-        usePage<AdminTpuProps>().props;
+    const { totalTpu, totalKapasitas, tpu } = usePage<AdminTpuProps>().props;
 
     // states
     const dataDashboard: { title: string; desc: number | null }[] = [
@@ -29,10 +27,6 @@ function AdminTpu() {
         {
             title: "Kapasitas Jumlah TPU",
             desc: totalKapasitas,
-        },
-        {
-            title: "Sisa Pemakaman",
-            desc: sisaPemakaman,
         },
     ];
 

@@ -26,7 +26,6 @@ class PemakamanController extends Controller
                     ->orWhere('luas', 'LIKE', "%$search%")
                     ->orWhere('kapasitas', 'LIKE', "%$search%")
                     ->orWhere('alamat', 'LIKE', "%$search%")
-                    ->orWhere('terpakai', 'LIKE', "%$search%")
                     ->orWhereHas('user', function ($query) use ($search) {
                         $query->where('name', 'LIKE', "%$search%");
                     });
@@ -71,18 +70,18 @@ class PemakamanController extends Controller
             "id_user" => ["required", "exists:users,id"],
             'id_kabupaten' => ["required"],
             'id_kecamatan' => ["required"],
+            "id_gampong" => ["required"],
             'nama_kabupaten' => ["required"],
             'nama_kecamatan' => ["required"],
+            'nama_gampong' => ["required"],
             "nama_pemakaman" => ["required", "string", "min:1", "max:255"],
             "luas" => ["required", "integer",],
             "kapasitas" => ["required", "integer",],
-            "terpakai" => ["required", "integer",],
             "alamat" => ["required", "string"],
             "latitude" => ["required", "string"],
             "longitude" => ["required", "string"],
             "image" => ["nullable", "image", "mimes:jpeg,png,jpg,gif", "max:2048"],
         ]);
-
 
         $pemakaman = new Pemakaman();
 
@@ -96,12 +95,13 @@ class PemakamanController extends Controller
         $pemakaman->id_user = $request->id_user;
         $pemakaman->id_kabupaten = $request->id_kabupaten;
         $pemakaman->id_kecamatan = $request->id_kecamatan;
+        $pemakaman->id_gampong = $request->id_gampong;
         $pemakaman->nama_kabupaten = $request->nama_kabupaten;
         $pemakaman->nama_kecamatan = $request->nama_kecamatan;
+        $pemakaman->nama_gampong = $request->nama_gampong;
         $pemakaman->nama_pemakaman = $request->nama_pemakaman;
         $pemakaman->luas = $request->luas;
         $pemakaman->kapasitas = $request->kapasitas;
-        $pemakaman->terpakai = $request->terpakai;
         $pemakaman->alamat = $request->alamat;
         $pemakaman->latitude = $request->latitude;
         $pemakaman->longitude = $request->longitude;
@@ -125,12 +125,13 @@ class PemakamanController extends Controller
             "id_user" => ["required"],
             'id_kabupaten' => ["required"],
             'id_kecamatan' => ["required"],
+            "id_gampong" => ["required"],
             'nama_kabupaten' => ["required"],
             'nama_kecamatan' => ["required"],
+            'nama_gampong' => ["required"],
             "nama_pemakaman" => ["required", "string", "min:1", "max:255"],
             "luas" => ["required", "integer",],
             "kapasitas" => ["required", "integer",],
-            "terpakai" => ["required", "integer",],
             "alamat" => ["required", "string"],
             "latitude" => ["required", "string"],
             "longitude" => ["required", "string"],
@@ -143,12 +144,13 @@ class PemakamanController extends Controller
             "id_user",
             "id_kabupaten",
             "id_kecamatan",
+            "id_gampong",
             "nama_kabupaten",
             "nama_kecamatan",
             'nama_pemakaman',
+            'nama_gampong',
             'luas',
             'kapasitas',
-            'terpakai',
             'alamat',
             'latitude',
             'longitude'
@@ -179,10 +181,10 @@ class PemakamanController extends Controller
                 $query->where('nama_pemakaman', 'LIKE', "%$search%")
                     ->orWhere('nama_kabupaten', 'LIKE', "%$search%")
                     ->orWhere('nama_kecamatan', 'LIKE', "%$search%")
+                    ->orWhere('nama_gampong', 'LIKE', "%$search%")
                     ->orWhere('luas', 'LIKE', "%$search%")
                     ->orWhere('kapasitas', 'LIKE', "%$search%")
                     ->orWhere('alamat', 'LIKE', "%$search%")
-                    ->orWhere('terpakai', 'LIKE', "%$search%")
                     ->orWhereHas('user', function ($query) use ($search) {
                         $query->where('name', 'LIKE', "%$search%");
                     });
@@ -233,16 +235,17 @@ class PemakamanController extends Controller
                 $query->where('nama_pemakaman', 'LIKE', "%$search%")
                     ->orWhere('nama_kabupaten', 'LIKE', "%$search%")
                     ->orWhere('nama_kecamatan', 'LIKE', "%$search%")
+                    ->orWhere('nama_gampong', 'LIKE', "%$search%")
                     ->orWhere('luas', 'LIKE', "%$search%")
                     ->orWhere('kapasitas', 'LIKE', "%$search%")
-                    ->orWhere('terpakai', 'LIKE', "%$search%")
                     ->orWhere('alamat', 'LIKE', "%$search%");
             });
         }
 
         $query
             ->where('id_kabupaten', $request->user()->id_kabupaten)
-            ->where('id_kecamatan', $request->user()->id_kecamatan);
+            ->where('id_kecamatan', $request->user()->id_kecamatan)
+            ->where('id_gampong', $request->user()->id_gampong);
 
         $tpu = $query->paginate($request->perpage ?? 10)->withQueryString();
 
@@ -260,7 +263,6 @@ class PemakamanController extends Controller
             "nama_pemakaman" => ["required", "string", "min:1", "max:255"],
             "luas" => ["required", "integer",],
             "kapasitas" => ["required", "integer",],
-            "terpakai" => ["required", "integer",],
             "alamat" => ["required", "string"],
             "latitude" => ["required", "string"],
             "longitude" => ["required", "string"],
@@ -281,10 +283,11 @@ class PemakamanController extends Controller
         $pemakaman->nama_kabupaten = $request->nama_kabupaten;
         $pemakaman->id_kecamatan = $request->id_kecamatan;
         $pemakaman->nama_kecamatan = $request->nama_kecamatan;
+        $pemakaman->id_gampong = $request->id_gampong;
+        $pemakaman->nama_gampong = $request->nama_gampong;
         $pemakaman->nama_pemakaman = $request->nama_pemakaman;
         $pemakaman->luas = $request->luas;
         $pemakaman->kapasitas = $request->kapasitas;
-        $pemakaman->terpakai = $request->terpakai;
         $pemakaman->alamat = $request->alamat;
         $pemakaman->latitude = $request->latitude;
         $pemakaman->longitude = $request->longitude;
@@ -313,7 +316,6 @@ class PemakamanController extends Controller
             "nama_pemakaman" => ["required", "string", "min:1", "max:255"],
             "luas" => ["required", "integer",],
             "kapasitas" => ["required", "integer",],
-            "terpakai" => ["required", "integer",],
             "alamat" => ["required", "string"],
             "latitude" => ["required", "string"],
             "longitude" => ["required", "string"],
@@ -326,7 +328,6 @@ class PemakamanController extends Controller
             'nama_pemakaman',
             'luas',
             'kapasitas',
-            'terpakai',
             'alamat',
             'latitude',
             'longitude'
