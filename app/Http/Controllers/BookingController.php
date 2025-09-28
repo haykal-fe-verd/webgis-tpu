@@ -47,6 +47,6 @@ class BookingController extends Controller
 
         Booking::create($request->all());
 
-        return redirect()->route('booking-tpu', $request->id_pemakaman)->with('success', 'Pemesanan TPU Berhasil Diajukan!');
+        return redirect()->route('booking-tpu', $request->id_pemakaman)->with('success', 'Pendaftaran telah berhasil, mohon tunggu konfirmasi selanjutnya melalui WhatsApp!');
     }
 }

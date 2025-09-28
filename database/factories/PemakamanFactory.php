@@ -57,7 +57,7 @@ class PemakamanFactory extends Factory
             'kapasitas'       => $kapasitas,
 
             'alamat'          => fake()->address(),
-            'image'           => fake()->imageUrl(),
+            'image'           => "1759066812.653345067.jpeg",
 
             // Simpan sebagai string karena kolom kamu string; kalau nanti ubah ke DECIMAL(9,6), tinggal hapus (string) cast.
             'latitude'        => (string) $latitude,

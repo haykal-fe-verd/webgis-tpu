@@ -34,6 +34,8 @@ function EditKelolaTpu() {
         nama_kabupaten: user.nama_kabupaten,
         id_kecamatan: user.id_kecamatan,
         nama_kecamatan: user.nama_kecamatan,
+        id_gampong: user.id_gampong,
+        nama_gampong: user.nama_gampong,
         nama_pemakaman: tpu?.nama_pemakaman ?? "",
         luas: tpu?.luas ?? 0,
         kapasitas: tpu?.kapasitas ?? 0,

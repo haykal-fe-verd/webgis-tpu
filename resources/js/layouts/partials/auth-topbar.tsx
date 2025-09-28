@@ -42,7 +42,9 @@ function AuthTopbar() {
             <AuthMobileSidebar />
             <div className="items-center justify-end flex w-full space-x-3">
                 <div className="text-sm font-semibold uppercase">
-                    Gampong {user?.nama_gampong}
+                    {user?.role === "super admin"
+                        ? "Super Admin"
+                        : `Gampong ${user?.nama_gampong}`}
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger>
