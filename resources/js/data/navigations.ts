@@ -17,12 +17,12 @@ export const guestNavigations: { name: string; href: string }[] = [
         href: route("home"),
     },
     {
-        name: "Daftar TPU",
-        href: route("daftar-tpu"),
-    },
-    {
         name: "Peta",
         href: route("peta"),
+    },
+    {
+        name: "Katalog",
+        href: route("daftar-tpu"),
     },
     {
         name: "Tutorial",
