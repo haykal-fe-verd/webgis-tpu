@@ -1,6 +1,6 @@
 import React from "react";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
-import { Check, ChevronLeft } from "lucide-react";
+import { Check, ChevronLeft, XCircle } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -38,13 +38,17 @@ function Detail() {
         post(route("verifikasi.post", tpu.id));
     };
 
+    const onReject = () => {
+        post(route("verifikasi.reject", tpu.id));
+    };
+
     return (
         <AuthLayout>
             <Head title="Detail TPU" />
 
             <div className="space-y-5">
                 <Link
-                    href={route("kelola-tpu.index")}
+                    href={route("verifikasi.index")}
                     className="flex items-center gap-2 text-muted-foreground"
                 >
                     <ChevronLeft className="w-5 h-5" />
@@ -150,15 +154,17 @@ function Detail() {
                                     <TableCell>
                                         :{" "}
                                         <Badge
+                                            className="capitalize"
                                             variant={
-                                                tpu.is_approved
+                                                tpu.is_approved === "disetujui"
                                                     ? "default"
+                                                    : tpu.is_approved ===
+                                                      "belum disetujui"
+                                                    ? "warning"
                                                     : "destructive"
                                             }
                                         >
-                                            {tpu.is_approved
-                                                ? "Disetujui"
-                                                : "Belum Disetujui"}
+                                            {tpu.is_approved}
                                         </Badge>
                                     </TableCell>
                                 </TableRow>
@@ -166,7 +172,7 @@ function Detail() {
                         </Table>
                     </div>
 
-                    {!tpu.is_approved && (
+                    {tpu.is_approved === "belum disetujui" && (
                         <AlertDialog>
                             <AlertDialogTrigger asChild>
                                 <Button className="w-full inline-flex items-center gap-2">
@@ -187,6 +193,37 @@ function Detail() {
                                 <AlertDialogFooter>
                                     <AlertDialogCancel>Tidak</AlertDialogCancel>
                                     <AlertDialogAction onClick={onSetujui}>
+                                        Yakin
+                                    </AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
+                    )}
+
+                    {tpu.is_approved === "belum disetujui" && (
+                        <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                                <Button
+                                    variant="destructive"
+                                    className="w-full inline-flex items-center gap-2"
+                                >
+                                    <XCircle className="w-4 h-4" />
+                                    <span>Tolak</span>
+                                </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>
+                                        Apakah anda yakin?
+                                    </AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        Setelah ditolak, TPU tidak akan di
+                                        tampilkan kepada user.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>Tidak</AlertDialogCancel>
+                                    <AlertDialogAction onClick={onReject}>
                                         Yakin
                                     </AlertDialogAction>
                                 </AlertDialogFooter>

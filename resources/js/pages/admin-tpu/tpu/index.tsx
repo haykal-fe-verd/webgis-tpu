@@ -137,15 +137,18 @@ function KelolaTpu() {
                                             </TableCell>
                                             <TableCell className="">
                                                 <Badge
+                                                    className="capitalize"
                                                     variant={
-                                                        item.is_approved
+                                                        item.is_approved ===
+                                                        "disetujui"
                                                             ? "default"
+                                                            : item.is_approved ===
+                                                              "belum disetujui"
+                                                            ? "warning"
                                                             : "destructive"
                                                     }
                                                 >
-                                                    {item.is_approved
-                                                        ? "Disetujui"
-                                                        : "Belum Disetujui"}
+                                                    {item.is_approved}
                                                 </Badge>
                                             </TableCell>
                                             <TableCell className="text-center">

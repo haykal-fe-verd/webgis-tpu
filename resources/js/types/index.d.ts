@@ -99,7 +99,7 @@ export interface Pemakaman {
     image?: any;
     latitude: string;
     longitude: string;
-    is_approved: boolean;
+    is_approved: string;
 }
 
 export interface PemakamanResponse {

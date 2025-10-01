@@ -1,6 +1,6 @@
 import React from "react";
 import { Head, router, useForm, usePage } from "@inertiajs/react";
-import { Check, Eye, Trash2 } from "lucide-react";
+import { Check, Eye, Trash2, XCircle } from "lucide-react";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 
 import { PageProps, PemakamanResponse } from "@/types";
@@ -39,6 +39,10 @@ function Verifikasi() {
     // events
     const onSetujui = (id: number) => {
         post(route("verifikasi.post", id));
+    };
+
+    const onReject = (id: number) => {
+        post(route("verifikasi.reject", id));
     };
 
     const handleDetail = (id: number) => {
@@ -142,15 +146,18 @@ function Verifikasi() {
                                             </TableCell>
                                             <TableCell className="text-center">
                                                 <Badge
+                                                    className="capitalize"
                                                     variant={
-                                                        item.is_approved
+                                                        item.is_approved ===
+                                                        "disetujui"
                                                             ? "default"
+                                                            : item.is_approved ===
+                                                              "belum disetujui"
+                                                            ? "warning"
                                                             : "destructive"
                                                     }
                                                 >
-                                                    {item.is_approved
-                                                        ? "Disetujui"
-                                                        : "Belum Disetujui"}
+                                                    {item.is_approved}
                                                 </Badge>
                                             </TableCell>
 
@@ -160,7 +167,8 @@ function Verifikasi() {
                                                         <DotsHorizontalIcon className="h-5 w-5" />
                                                     </DropdownMenuTrigger>
                                                     <DropdownMenuContent className="flex flex-col">
-                                                        {item.is_approved ? null : (
+                                                        {item.is_approved ===
+                                                        "belum disetujui" ? (
                                                             <DropdownMenuItem
                                                                 onClick={() =>
                                                                     onSetujui(
@@ -174,7 +182,23 @@ function Verifikasi() {
                                                                     Setujui
                                                                 </span>
                                                             </DropdownMenuItem>
-                                                        )}
+                                                        ) : null}
+                                                        {item.is_approved ===
+                                                        "belum disetujui" ? (
+                                                            <DropdownMenuItem
+                                                                onClick={() =>
+                                                                    onReject(
+                                                                        item.id
+                                                                    )
+                                                                }
+                                                                className="inline-flex items-center gap-2 w-full"
+                                                            >
+                                                                <XCircle className="h-4 w-4" />
+                                                                <span>
+                                                                    Tolak
+                                                                </span>
+                                                            </DropdownMenuItem>
+                                                        ) : null}
 
                                                         <DropdownMenuItem
                                                             onClick={() =>

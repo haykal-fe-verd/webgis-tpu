@@ -63,7 +63,8 @@ class PemakamanFactory extends Factory
             'latitude'        => (string) $latitude,
             'longitude'       => (string) $longitude,
 
-            'is_approved'     => fake()->boolean(),
+            'is_approved'     => fake()->randomElement(['disetujui', 'belum disetujui', 'ditolak']),
+            'note'            => fake()->text(),
         ];
     }
 

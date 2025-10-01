@@ -105,7 +105,7 @@ class PemakamanController extends Controller
         $pemakaman->alamat = $request->alamat;
         $pemakaman->latitude = $request->latitude;
         $pemakaman->longitude = $request->longitude;
-        $pemakaman->is_approved = true;
+        $pemakaman->is_approved = "disetujui";
         $pemakaman->save();
 
         return redirect()->route('tpu.index')->with('success', 'TPU Berhasil ditambahkan');
@@ -208,9 +208,17 @@ class PemakamanController extends Controller
     public function super_admin_verifikasi_tpu_post(int $id): RedirectResponse
     {
         $tpu = Pemakaman::find($id);
-        $tpu->update(['is_approved' => true]);
+        $tpu->update(['is_approved' => 'disetujui']);
 
         return redirect()->back()->with('success', 'Pengajuan TPU Berhasil Dikonfirmasi');
+    }
+
+    public function super_admin_verifikasi_tpu_reject(int $id): RedirectResponse
+    {
+        $tpu = Pemakaman::find($id);
+        $tpu->update(['is_approved' => 'ditolak']);
+
+        return redirect()->back()->with('success', 'Pengajuan TPU Berhasil Ditolak!');
     }
 
     public function super_admin_verifikasi_tpu_destroy(int $id): RedirectResponse

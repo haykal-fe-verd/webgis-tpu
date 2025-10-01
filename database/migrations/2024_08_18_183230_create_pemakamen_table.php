@@ -28,7 +28,8 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('latitude');
             $table->string('longitude');
-            $table->boolean('is_approved')->default(false);
+            $table->enum('is_approved', ['disetujui', 'belum disetujui', 'ditolak'])->default("belum disetujui");
+            $table->text('note')->nullable();
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');

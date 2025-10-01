@@ -31,7 +31,8 @@ class Pemakaman extends Model
         "image",
         "latitude",
         "longitude",
-        "is_approved"
+        "is_approved",
+        "note",
     ];
 
 

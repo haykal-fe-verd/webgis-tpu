@@ -27,7 +27,7 @@ class PemakamanSeeder extends Seeder
             'kapasitas'       => 2800,
             'latitude'        => "5.572933201512188",
             'longitude'       => "95.51633834838869",
-            'is_approved'     => true
+            'is_approved'     => 'disetujui'
         ]);
 
         Pemakaman::factory(100)->create();

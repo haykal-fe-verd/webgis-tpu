@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/verifikasi', [PemakamanController::class, 'super_admin_verifikasi_tpu_index'])->name('verifikasi.index');
     Route::get('/verifikasi/{id}', [PemakamanController::class, 'super_admin_verifikasi_tpu_detail'])->name('verifikasi.detail');
     Route::post('/verifikasi/{id}', [PemakamanController::class, 'super_admin_verifikasi_tpu_post'])->name('verifikasi.post');
+    Route::post('/verifikasi/{id}/reject', [PemakamanController::class, 'super_admin_verifikasi_tpu_reject'])->name('verifikasi.reject');
     Route::delete('/verifikasi/{id}', [PemakamanController::class, 'super_admin_verifikasi_tpu_destroy'])->name('verifikasi.destroy');
 
     // panduan webgis

@@ -129,17 +129,18 @@ function Detail() {
                                         Status
                                     </TableCell>
                                     <TableCell>
-                                        :{" "}
                                         <Badge
+                                            className="capitalize"
                                             variant={
-                                                tpu.is_approved
+                                                tpu.is_approved === "disetujui"
                                                     ? "default"
+                                                    : tpu.is_approved ===
+                                                      "belum disetujui"
+                                                    ? "warning"
                                                     : "destructive"
                                             }
                                         >
-                                            {tpu.is_approved
-                                                ? "Disetujui"
-                                                : "Belum Disetujui"}
+                                            {tpu.is_approved}
                                         </Badge>
                                     </TableCell>
                                 </TableRow>

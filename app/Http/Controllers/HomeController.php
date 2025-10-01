@@ -12,7 +12,7 @@ class HomeController extends Controller
 {
     public function index(): Response
     {
-        $tpu = Pemakaman::with('user')->where('is_approved', 1)->get();
+        $tpu = Pemakaman::with('user')->where('is_approved', "disetujui")->get();
 
         return Inertia::render('home/index', compact('tpu'));
     }
@@ -27,7 +27,7 @@ class HomeController extends Controller
             $gampong = $request->gampong;
 
             $query
-                ->where('is_approved', 1)
+                ->where('is_approved', "disetujui")
                 ->where('id_kabupaten', $kabupaten)
                 ->where('id_kecamatan', $kecamatan)
                 ->where('id_gampong', $gampong);
@@ -55,7 +55,7 @@ class HomeController extends Controller
 
     public function peta(): Response
     {
-        $tpu = Pemakaman::with('user')->where('is_approved', 1)->get();
+        $tpu = Pemakaman::with('user')->where('is_approved', "disetujui")->get();
 
         return Inertia::render('home/peta', compact('tpu'));
     }
