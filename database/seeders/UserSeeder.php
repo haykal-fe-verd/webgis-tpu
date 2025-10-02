@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'Super Admin',
-            'email' => 'admin@admin.com',
+            'email' => 'superadmin@test.com',
             'role' => 'super admin',
             'id_kabupaten' => '1171',
             'nama_kabupaten' => 'KOTA BANDA ACEH',
@@ -50,6 +50,6 @@ class UserSeeder extends Seeder
             'phone' => '085276496515',
         ]);
 
-        User::factory(30)->create();
+        // User::factory(30)->create();
     }
 }

@@ -30,6 +30,6 @@ class PemakamanSeeder extends Seeder
             'is_approved'     => 'disetujui'
         ]);
 
-        Pemakaman::factory(100)->create();
+        // Pemakaman::factory(100)->create();
     }
 }
