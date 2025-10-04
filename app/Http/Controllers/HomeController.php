@@ -27,11 +27,12 @@ class HomeController extends Controller
             $gampong = $request->gampong;
 
             $query
-                ->where('is_approved', "disetujui")
                 ->where('id_kabupaten', $kabupaten)
                 ->where('id_kecamatan', $kecamatan)
                 ->where('id_gampong', $gampong);
         }
+
+        $query->where('is_approved', "disetujui");
 
 
         $pemakaman = $query->paginate(12)->appends($request->all());

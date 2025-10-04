@@ -41,15 +41,15 @@ class UserSeeder extends Seeder
             'name' => 'Syahrul',
             'email' => 'syahrul@test.com',
             'role' => 'admin tpu',
-            'id_kabupaten' => '1108',
-            'nama_kabupaten' => 'KABUPATEN ACEH BESAR',
-            'id_kecamatan' => '1108050',
-            'nama_kecamatan' => 'MESJID RAYA',
-            'id_gampong' => '1108050003',
-            'nama_gampong' => 'NEUHEUN',
+            'id_kabupaten' => '1171',
+            'nama_kabupaten' => 'KOTA BANDA ACEH',
+            'id_kecamatan' => '1171030',
+            'nama_kecamatan' => 'KUTA ALAM',
+            'id_gampong' => '1171030007',
+            'nama_gampong' => 'BANDAR BARU',
             'phone' => '085276496515',
         ]);
 
-        // User::factory(30)->create();
+        // User::factory(5)->create();
     }
 }

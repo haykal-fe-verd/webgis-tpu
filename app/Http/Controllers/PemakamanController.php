@@ -250,10 +250,13 @@ class PemakamanController extends Controller
             });
         }
 
-        $query
-            ->where('id_kabupaten', $request->user()->id_kabupaten)
-            ->where('id_kecamatan', $request->user()->id_kecamatan)
-            ->where('id_gampong', $request->user()->id_gampong);
+
+        // $query
+        //     ->where('id_kabupaten', $request->user()->id_kabupaten)
+        //     ->where('id_kecamatan', $request->user()->id_kecamatan)
+        //     ->where('id_gampong', $request->user()->id_gampong);
+
+        $query->where('id_user', $request->user()->id);
 
         $tpu = $query->paginate($request->perpage ?? 10)->withQueryString();
 

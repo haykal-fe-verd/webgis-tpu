@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Pemakaman;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +21,9 @@ class BookingFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->safeEmail(),
             'hp' => fake()->phoneNumber(),
-            'id_pemakaman' => fake()->numberBetween(1, 10),
+            'status' => fake()->randomElement(['Belum Diproses', 'Sedang Diproses', 'Selesai']),
+            'id_pemakaman' => fn() =>
+            Pemakaman::query()->inRandomOrder()->value('id')
         ];
     }
 }

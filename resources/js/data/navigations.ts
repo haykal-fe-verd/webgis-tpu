@@ -1,5 +1,4 @@
 import {
-    AppWindow,
     BadgeCheck,
     Bookmark,
     Box,
@@ -62,12 +61,12 @@ export const authNavigations: {
         icon: UserRound,
         roles: ["super admin"],
     },
-    {
-        name: "Panduan WebGIS",
-        href: route("panduan-webgis.index"),
-        icon: AppWindow,
-        roles: ["super admin"],
-    },
+    // {
+    //     name: "Panduan WebGIS",
+    //     href: route("panduan-webgis.index"),
+    //     icon: AppWindow,
+    //     roles: ["super admin"],
+    // },
 
     // admin tpu
     {

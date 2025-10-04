@@ -60,14 +60,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/verifikasi/{id}', [PemakamanController::class, 'super_admin_verifikasi_tpu_destroy'])->name('verifikasi.destroy');
 
     // panduan webgis
-    Route::get('/panduan-webgis', [PanduanWebgisController::class, 'index'])->name('panduan-webgis.index');
-    Route::post('/panduan-webgis', [PanduanWebgisController::class, 'store'])->name('panduan-webgis.store');
+    // Route::get('/panduan-webgis', [PanduanWebgisController::class, 'index'])->name('panduan-webgis.index');
+    // Route::post('/panduan-webgis', [PanduanWebgisController::class, 'store'])->name('panduan-webgis.store');
 
 
 
     //! admin tpu
     // pemesanan tpu
     Route::get('pemesanan-tpu', [BookingController::class, 'index'])->name('booking.index');
+    Route::put('pemesanan-tpu/{id}', [BookingController::class, 'update_status'])->name('booking.update');
 
     // kelola tpu
     Route::get('kelola-tpu', [PemakamanController::class, 'admin_tpu_kelola_tpu'])->name('kelola-tpu.index');

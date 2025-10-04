@@ -1,5 +1,5 @@
 import React from "react";
-import { Head, usePage } from "@inertiajs/react";
+import { Head, router, usePage } from "@inertiajs/react";
 import moment from "moment";
 
 import { BookingResponse, PageProps } from "@/types";
@@ -15,6 +15,14 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 interface BookingProps extends PageProps {
     pemesanan: BookingResponse;
@@ -27,9 +35,27 @@ function Booking() {
     // states
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
+    // events
+    const handleChangeStatus = (
+        id: number,
+        nextStatus: string,
+        currentStatus: string
+    ) => {
+        if (nextStatus === currentStatus) return; // tidak perlu request kalau sama
+
+        router.put(
+            route("booking.update", id),
+            { status: nextStatus },
+            {
+                preserveScroll: true,
+                preserveState: true,
+            }
+        );
+    };
     // table
     const columns = [
         { name: "#", className: "w-10 text-center" },
+        { name: "Status", className: "" },
         { name: "Tanggal", className: "" },
         { name: "Nama", className: "" },
         { name: "Email", className: "" },
@@ -92,6 +118,46 @@ function Booking() {
                                         <TableRow key={index}>
                                             <TableCell className="text-center">
                                                 {pemesanan.from + index}
+                                            </TableCell>
+                                            <TableCell className="">
+                                                <Select
+                                                    onValueChange={(value) => {
+                                                        handleChangeStatus(
+                                                            item.id,
+                                                            value,
+                                                            item.status
+                                                        );
+                                                    }}
+                                                    defaultValue={item.status}
+                                                >
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Status" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectGroup>
+                                                            <SelectItem value="Belum Diproses">
+                                                                <div className="flex gap-2 items-center">
+                                                                    <p className="bg-destructive rounded-full size-3" />{" "}
+                                                                    Belum
+                                                                    Diproses
+                                                                </div>
+                                                            </SelectItem>
+                                                            <SelectItem value="Sedang Diproses">
+                                                                <div className="flex gap-2 items-center">
+                                                                    <p className="bg-yellow-500 rounded-full size-3" />{" "}
+                                                                    Sedang
+                                                                    Diproses
+                                                                </div>
+                                                            </SelectItem>
+                                                            <SelectItem value="Selesai">
+                                                                <div className="flex gap-2 items-center">
+                                                                    <p className="bg-emerald-700 rounded-full size-3" />{" "}
+                                                                    Selesai
+                                                                </div>
+                                                            </SelectItem>
+                                                        </SelectGroup>
+                                                    </SelectContent>
+                                                </Select>
                                             </TableCell>
                                             <TableCell className="">
                                                 {moment(item.created_at).format(

@@ -124,6 +124,7 @@ export interface Booking {
     name: string;
     email: string;
     hp: string;
+    status: string;
     pemakaman?: Pemakaman | null;
     created_at: string;
     updated_at: string;

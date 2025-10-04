@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('hp');
+            $table->enum('status', ['Belum Diproses', 'Sedang Diproses', 'Selesai'])->default('Belum Diproses');
 
             $table->foreign('id_pemakaman')->references('id')->on('tb_pemakaman')->onDelete('cascade');
             $table->timestamps();

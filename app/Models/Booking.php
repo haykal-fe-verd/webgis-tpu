@@ -20,6 +20,7 @@ class Booking extends Model
         'name',
         'email',
         'hp',
+        'status',
         'id_pemakaman'
     ];
 
