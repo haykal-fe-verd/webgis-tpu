@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_pemakaman');
             $table->string('name');
+            $table->string('nik');
             $table->string('email');
             $table->string('hp');
             $table->enum('status', ['Belum Diproses', 'Sedang Diproses', 'Selesai'])->default('Belum Diproses');
+            $table->enum('sebagai', ['warga', 'non warga'])->default('warga');
 
             $table->foreign('id_pemakaman')->references('id')->on('tb_pemakaman')->onDelete('cascade');
             $table->timestamps();

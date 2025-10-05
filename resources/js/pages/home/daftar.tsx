@@ -26,7 +26,7 @@ interface DaftarTpuProps extends PageProps {
     pemakaman: PemakamanResponse;
 }
 
-function DaftarTpu() {
+function DaftarPage() {
     // hooks
     const { get } = useForm();
 
@@ -56,7 +56,7 @@ function DaftarTpu() {
 
     const onCari = async () => {
         await get(
-            route("daftar-tpu", {
+            route("daftar", {
                 kabupaten: idKabupaten,
                 kecamatan: idKecamatan,
                 gampong: idGampong,
@@ -65,7 +65,7 @@ function DaftarTpu() {
     };
 
     const onReset = async () => {
-        await get(route("daftar-tpu"));
+        await get(route("daftar"));
     };
 
     const getKecamatan = async (id: string) => {
@@ -86,12 +86,11 @@ function DaftarTpu() {
 
     return (
         <GuestLayout>
-            <Head title="Daftar TPU" />
-
-            <section id="daftar-tpu" className="container my-5">
+            <Head title="Daftar" />
+            <section id="daftar" className="py-5 space-y-5 container">
                 <div className="space-y-5">
                     <h1 className="text-2xl font-bold text-center">
-                        Daftar TPU
+                        Pilih Lokasi TPU yang ingin didaftar
                     </h1>
 
                     <div className="w-full flex gap-5">
@@ -203,11 +202,11 @@ function DaftarTpu() {
                                                 >
                                                     <Link
                                                         href={route(
-                                                            "daftar-tpu-detail",
+                                                            "booking-tpu",
                                                             item.id
                                                         )}
                                                     >
-                                                        Lihat Detail
+                                                        Daftar Sekarang
                                                     </Link>
                                                 </Button>
                                             </div>
@@ -237,4 +236,4 @@ function DaftarTpu() {
     );
 }
 
-export default DaftarTpu;
+export default DaftarPage;

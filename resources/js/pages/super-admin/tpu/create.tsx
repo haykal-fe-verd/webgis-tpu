@@ -65,6 +65,7 @@ function CreateTpu() {
         image: "" as any,
         latitude: "",
         longitude: "",
+        keterangan: "",
     });
 
     const { users } = usePage<CreateTpuProps>().props;
@@ -311,6 +312,24 @@ function CreateTpu() {
                                         }
                                     />
                                     <InputError message={errors.alamat} />
+                                </div>
+
+                                <div className="w-full">
+                                    <Label htmlFor="keterangan">
+                                        Keterangan
+                                    </Label>
+                                    <Textarea
+                                        id="keterangan"
+                                        name="keterangan"
+                                        value={data.keterangan}
+                                        onChange={(e) =>
+                                            setData(
+                                                "keterangan",
+                                                e.target.value
+                                            )
+                                        }
+                                    />
+                                    <InputError message={errors.keterangan} />
                                 </div>
                             </div>
 

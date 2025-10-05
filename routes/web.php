@@ -17,6 +17,7 @@ Route::get('/booking/{id}', [HomeController::class, 'bookingTpu'])->name('bookin
 Route::post('/booking', [BookingController::class, 'store'])->name('booking-tpu.store');
 Route::get('/peta', [HomeController::class, 'peta'])->name('peta');
 Route::get('/tutorial', [HomeController::class, 'tutorial'])->name('tutorial');
+Route::get('/daftar', [HomeController::class, 'daftar'])->name('daftar');
 
 
 

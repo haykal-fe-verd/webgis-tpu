@@ -39,6 +39,7 @@ class PemakamanFactory extends Factory
 
         // Konsistensi kapasitas–terpakai
         $kapasitas = fake()->numberBetween(200, 1000);
+        $terpakai  = fake()->numberBetween(0, $kapasitas);
 
         return [
             'nama_pemakaman'  => fake()->company(),
@@ -55,6 +56,7 @@ class PemakamanFactory extends Factory
 
             'luas'            => fake()->numberBetween(100, 1000),
             'kapasitas'       => $kapasitas,
+            'terpakai'        => $terpakai,
 
             'alamat'          => fake()->address(),
             'image'           => "1759066812.653345067.jpeg",

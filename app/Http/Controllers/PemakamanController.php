@@ -81,6 +81,7 @@ class PemakamanController extends Controller
             "latitude" => ["required", "string"],
             "longitude" => ["required", "string"],
             "image" => ["nullable", "image", "mimes:jpeg,png,jpg,gif", "max:2048"],
+            "keterangan" => ["nullable"],
         ]);
 
         $pemakaman = new Pemakaman();
@@ -106,6 +107,7 @@ class PemakamanController extends Controller
         $pemakaman->latitude = $request->latitude;
         $pemakaman->longitude = $request->longitude;
         $pemakaman->is_approved = "disetujui";
+        $pemakaman->keterangan = $request->keterangan;
         $pemakaman->save();
 
         return redirect()->route('tpu.index')->with('success', 'TPU Berhasil ditambahkan');
@@ -136,6 +138,7 @@ class PemakamanController extends Controller
             "latitude" => ["required", "string"],
             "longitude" => ["required", "string"],
             "image" => ["nullable", "image", "mimes:jpeg,png,jpg,gif", "max:2048"],
+            "keterangan" => ["nullable"],
         ]);
 
         $pemakaman = Pemakaman::with('user')->find((int)$id);
@@ -153,7 +156,8 @@ class PemakamanController extends Controller
             'kapasitas',
             'alamat',
             'latitude',
-            'longitude'
+            'longitude',
+            'keterangan',
         ]);
 
         if ($request->hasFile('image')) {
@@ -250,12 +254,6 @@ class PemakamanController extends Controller
             });
         }
 
-
-        // $query
-        //     ->where('id_kabupaten', $request->user()->id_kabupaten)
-        //     ->where('id_kecamatan', $request->user()->id_kecamatan)
-        //     ->where('id_gampong', $request->user()->id_gampong);
-
         $query->where('id_user', $request->user()->id);
 
         $tpu = $query->paginate($request->perpage ?? 10)->withQueryString();
@@ -278,6 +276,7 @@ class PemakamanController extends Controller
             "latitude" => ["required", "string"],
             "longitude" => ["required", "string"],
             "image" => ["required", "image", "mimes:jpeg,png,jpg,gif", "max:2048"],
+            "keterangan" => ["nullable"],
         ]);
 
         $pemakaman = new Pemakaman();
@@ -302,6 +301,7 @@ class PemakamanController extends Controller
         $pemakaman->alamat = $request->alamat;
         $pemakaman->latitude = $request->latitude;
         $pemakaman->longitude = $request->longitude;
+        $pemakaman->keterangan = $request->keterangan;
         $pemakaman->save();
 
         return redirect()->route('kelola-tpu.index')->with('success', 'TPU Berhasil diajukan, silahkan tunggu persetujuan admin');
@@ -331,6 +331,7 @@ class PemakamanController extends Controller
             "latitude" => ["required", "string"],
             "longitude" => ["required", "string"],
             "image" => ["nullable", "image", "mimes:jpeg,png,jpg,gif", "max:2048"],
+            "keterangan" => ["nullable"],
         ]);
 
         $tpu = Pemakaman::find($id);
@@ -341,7 +342,8 @@ class PemakamanController extends Controller
             'kapasitas',
             'alamat',
             'latitude',
-            'longitude'
+            'longitude',
+            'keterangan',
         ]);
 
         if ($request->hasFile('image')) {

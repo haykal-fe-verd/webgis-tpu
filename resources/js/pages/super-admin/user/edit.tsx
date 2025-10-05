@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface EditProps extends PageProps {
     pengguna: User;
@@ -39,6 +40,7 @@ function Edit() {
         id_gampong: pengguna.id_gampong,
         nama_gampong: pengguna.nama_gampong,
         image: "" as any,
+        is_keuchik: pengguna.is_keuchik || false,
     });
 
     // states
@@ -402,6 +404,22 @@ function Edit() {
                             className="object-cover w-full h-[400px]"
                         />
                     )}
+
+                    <div className="w-full flex items-center gap-3">
+                        <Checkbox
+                            id="is_keuchik"
+                            name="is_keuchik"
+                            checked={data.is_keuchik}
+                            onCheckedChange={(e) =>
+                                setData("is_keuchik", Boolean(e))
+                            }
+                        />
+                        <Label htmlFor="is_keuchik">
+                            Apakah Keuchik Gampong?
+                        </Label>
+
+                        <InputError message={errors.is_keuchik} />
+                    </div>
 
                     <Button className="inline-flex w-fit items-center gap-2">
                         {processing && (

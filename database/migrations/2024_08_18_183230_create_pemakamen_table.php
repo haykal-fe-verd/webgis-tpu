@@ -24,12 +24,14 @@ return new class extends Migration
             $table->string('nama_gampong');
             $table->integer('luas');
             $table->integer('kapasitas');
+            $table->integer('terpakai')->default(0);
             $table->text('alamat');
             $table->string('image')->nullable();
             $table->string('latitude');
             $table->string('longitude');
             $table->enum('is_approved', ['disetujui', 'belum disetujui', 'ditolak'])->default("belum disetujui");
             $table->text('note')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');

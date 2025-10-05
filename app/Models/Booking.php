@@ -21,7 +21,9 @@ class Booking extends Model
         'email',
         'hp',
         'status',
-        'id_pemakaman'
+        'id_pemakaman',
+        'sebagai',
+        'nik'
     ];
 
     // relations

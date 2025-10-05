@@ -49,7 +49,7 @@ class HomeController extends Controller
 
     public function bookingTpu(int $id): Response
     {
-        $pemakaman = Pemakaman::find($id);
+        $pemakaman = Pemakaman::with('user')->find($id);
 
         return Inertia::render('home/booking-tpu', compact('pemakaman'));
     }
@@ -66,5 +66,28 @@ class HomeController extends Controller
         $isi = PanduanWebgis::first();
 
         return Inertia::render('home/tutorial', compact('isi'));
+    }
+
+    public function daftar(Request $request): Response
+    {
+        $query = Pemakaman::query()->latest();
+
+        if ($request->has('kabupaten') || $request->has('kecamatan') || $request->has('gampong')) {
+            $kabupaten = $request->kabupaten;
+            $kecamatan = $request->kecamatan;
+            $gampong = $request->gampong;
+
+            $query
+                ->where('id_kabupaten', $kabupaten)
+                ->where('id_kecamatan', $kecamatan)
+                ->where('id_gampong', $gampong);
+        }
+
+        $query->where('is_approved', "disetujui");
+
+
+        $pemakaman = $query->paginate(12)->appends($request->all());
+
+        return Inertia::render('home/daftar', compact('pemakaman'));
     }
 }

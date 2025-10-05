@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('nama_kecamatan')->nullable();
             $table->string('id_gampong')->nullable();
             $table->string('nama_gampong')->nullable();
+            $table->boolean('is_keuchik')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

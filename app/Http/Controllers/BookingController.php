@@ -21,6 +21,8 @@ class BookingController extends Controller
                 $query->where('name', 'LIKE', "%$search%")
                     ->orWhere('email', 'LIKE', "%$search%")
                     ->orWhere('hp', 'LIKE', "%$search%")
+                    ->orWhere('nik', 'LIKE', "%$search%")
+                    ->orWhere('sebagai', 'LIKE', "%$search%")
                     ->orWhereHas('pemakaman', function ($query) use ($search) {
                         $query->where('nama_pemakaman', 'LIKE', "%$search%");
                     });
@@ -28,8 +30,6 @@ class BookingController extends Controller
         }
 
         $query->whereHas('pemakaman', function ($query) use ($request) {
-            // $query->where('id_kabupaten', $request->user()->id_kabupaten)
-            //     ->where('id_kecamatan', $request->user()->id_kecamatan);
             $query->where('id_user', $request->user()->id);
         });
 
@@ -45,6 +45,8 @@ class BookingController extends Controller
             'email' => ['required', 'string', 'email', 'max:255'],
             'hp' => ['required', 'string', 'max:255'],
             'id_pemakaman' => ['required', 'integer'],
+            'sebagai' => ['required', Rule::in(['warga', 'non warga'])],
+            'nik' => ['required', 'max:16'],
         ]);
 
         Booking::create($request->all());

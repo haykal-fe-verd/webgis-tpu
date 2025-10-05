@@ -27,12 +27,14 @@ class Pemakaman extends Model
         "nama_gampong",
         "luas",
         "kapasitas",
+        "terpakai",
         "alamat",
         "image",
         "latitude",
         "longitude",
         "is_approved",
         "note",
+        "keterangan"
     ];
 
 

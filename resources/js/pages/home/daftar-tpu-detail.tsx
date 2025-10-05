@@ -51,7 +51,38 @@ function DaftarTpuDetail() {
                                     <td>{pemakaman.alamat}</td>
                                 </tr>
                                 <tr>
-                                    <td className="w-[200px]">Nama PJ</td>
+                                    <td className="w-[200px]">Luas</td>
+                                    <td>:</td>
+                                    <td>
+                                        {pemakaman.luas} m<sup>2</sup>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="w-[200px]">Kapasitas</td>
+                                    <td>:</td>
+                                    <td>{pemakaman.kapasitas} Jiwa</td>
+                                </tr>
+                                <tr>
+                                    <td className="w-[200px]">Tersedia</td>
+                                    <td>:</td>
+                                    <td>
+                                        {hitungSisaPemakaman(
+                                            pemakaman.kapasitas,
+                                            pemakaman.terpakai
+                                        )}{" "}
+                                        Jiwa
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="w-[200px]">Keterangan</td>
+                                    <td>:</td>
+                                    <td>{pemakaman.keterangan ?? "-"}</td>
+                                </tr>
+
+                                <tr>
+                                    <td className="w-[200px]">
+                                        Nama Penanggung Jawab
+                                    </td>
                                     <td>:</td>
                                     <td>{pemakaman.user?.name}</td>
                                 </tr>
@@ -60,20 +91,8 @@ function DaftarTpuDetail() {
                                     <td>:</td>
                                     <td>{pemakaman.user?.phone}</td>
                                 </tr>
-                                <tr>
-                                    <td className="w-[200px]">Luas</td>
-                                    <td>:</td>
-                                    <td>
-                                        {pemakaman.luas} m<sup>2</sup>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
-                        <Button className="w-fit" asChild>
-                            <Link href={route("booking-tpu", pemakaman.id)}>
-                                Booking TPU
-                            </Link>
-                        </Button>
                     </div>
 
                     <div className="w-full flex flex-col gap-5">

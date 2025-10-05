@@ -73,6 +73,7 @@ function EditTpu() {
         image: "" as any,
         latitude: tpu.latitude,
         longitude: tpu.longitude,
+        keterangan: tpu.keterangan,
     });
 
     // states
@@ -334,6 +335,24 @@ function EditTpu() {
                                         }
                                     />
                                     <InputError message={errors.alamat} />
+                                </div>
+
+                                <div className="w-full">
+                                    <Label htmlFor="keterangan">
+                                        Keterangan
+                                    </Label>
+                                    <Textarea
+                                        id="keterangan"
+                                        name="keterangan"
+                                        value={data.keterangan}
+                                        onChange={(e) =>
+                                            setData(
+                                                "keterangan",
+                                                e.target.value
+                                            )
+                                        }
+                                    />
+                                    <InputError message={errors.keterangan} />
                                 </div>
                             </div>
 

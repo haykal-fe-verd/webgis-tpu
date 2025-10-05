@@ -22,8 +22,11 @@ class BookingFactory extends Factory
             'email' => fake()->safeEmail(),
             'hp' => fake()->phoneNumber(),
             'status' => fake()->randomElement(['Belum Diproses', 'Sedang Diproses', 'Selesai']),
+            'nik' => "12312312312312",
+            'sebagai' => fake()->randomElement(['warga', 'non warga']),
             'id_pemakaman' => fn() =>
             Pemakaman::query()->inRandomOrder()->value('id')
+
         ];
     }
 }

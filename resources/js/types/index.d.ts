@@ -12,6 +12,7 @@ export interface User {
     id_gampong?: string;
     nama_gampong?: string;
     email_verified_at: string;
+    is_keuchik: boolean;
 }
 
 export interface UserResponse {
@@ -95,11 +96,14 @@ export interface Pemakaman {
     nama_gampong: string;
     luas: number;
     kapasitas: number;
+    terpakai: number;
     alamat: string;
     image?: any;
     latitude: string;
     longitude: string;
     is_approved: string;
+    note: string;
+    keterangan: string;
 }
 
 export interface PemakamanResponse {

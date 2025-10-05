@@ -29,6 +29,7 @@ class User extends Authenticatable implements MustVerifyEmail
         "nama_kecamatan",
         "id_gampong",
         "nama_gampong",
+        "is_keuchik"
     ];
 
     /**

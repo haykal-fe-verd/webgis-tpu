@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { GampongResponse, KecamatanResponse } from "@/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Checkbox } from "@/components/ui/checkbox";
 
 function Create() {
     // hooks
@@ -33,6 +34,7 @@ function Create() {
         nama_gampong: "",
         image: "" as any,
         password_confirmation: "",
+        is_keuchik: false,
     });
 
     // states
@@ -370,6 +372,22 @@ function Create() {
                             className="object-cover w-full h-[400px]"
                         />
                     )}
+
+                    <div className="w-full flex items-center gap-3">
+                        <Checkbox
+                            id="is_keuchik"
+                            name="is_keuchik"
+                            checked={data.is_keuchik}
+                            onCheckedChange={(e) =>
+                                setData("is_keuchik", Boolean(e))
+                            }
+                        />
+                        <Label htmlFor="is_keuchik">
+                            Apakah Keuchik Gampong?
+                        </Label>
+
+                        <InputError message={errors.is_keuchik} />
+                    </div>
 
                     <Button className="inline-flex w-fit items-center gap-2">
                         {processing && (

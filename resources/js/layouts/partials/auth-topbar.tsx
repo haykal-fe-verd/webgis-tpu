@@ -37,14 +37,29 @@ function AuthTopbar() {
         post(route("logout"));
     };
 
+    const headerLabel = React.useCallback(() => {
+        const role = user?.role?.toLowerCase();
+        const namaGampong = user?.nama_gampong ?? "";
+
+        if (role === "super admin") {
+            return user?.name ?? "";
+        }
+
+        if (role === "admin tpu") {
+            return user?.is_keuchik
+                ? `Keuchik ${namaGampong}`
+                : `Gampong ${namaGampong}`;
+        }
+
+        return `Gampong ${namaGampong}`;
+    }, [user?.role, user?.name, user?.is_keuchik, user?.nama_gampong]);
+
     return (
         <header className="bg-card text-card-foreground border-b border-border px-5 py-3 flex items-center justify-between text-nowrap flex-nowrap">
             <AuthMobileSidebar />
             <div className="items-center justify-end flex w-full space-x-3">
                 <div className="text-sm font-semibold uppercase">
-                    {user?.role === "super admin"
-                        ? "Super Admin"
-                        : `Gampong ${user?.nama_gampong}`}
+                    {headerLabel()}
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger>
@@ -94,7 +109,7 @@ function AuthTopbar() {
                                 <AlertDialogContent>
                                     <AlertDialogHeader>
                                         <AlertDialogTitle>
-                                            Apakah kamu ingin logout 🥹
+                                            Apakah kamu ingin logout?
                                         </AlertDialogTitle>
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>

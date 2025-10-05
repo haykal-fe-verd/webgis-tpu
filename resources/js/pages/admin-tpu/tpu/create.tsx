@@ -40,6 +40,7 @@ function CreateKelolaTpu() {
         image: "" as any,
         latitude: "",
         longitude: "",
+        keterangan: "",
     });
 
     // states
@@ -210,6 +211,19 @@ function CreateKelolaTpu() {
                                     }
                                 />
                                 <InputError message={errors.alamat} />
+                            </div>
+
+                            <div className="w-full">
+                                <Label htmlFor="keterangan">Keterangan</Label>
+                                <Textarea
+                                    id="keterangan"
+                                    name="keterangan"
+                                    value={data.keterangan}
+                                    onChange={(e) =>
+                                        setData("keterangan", e.target.value)
+                                    }
+                                />
+                                <InputError message={errors.keterangan} />
                             </div>
 
                             <Button className="inline-flex w-fit items-center gap-2">

@@ -53,6 +53,7 @@ class UserController extends Controller
             'id_kecamatan' => ['required', 'string', 'max:255'],
             'id_gampong' => ['required', 'string', 'max:255'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'is_keuchik' => ['required', 'boolean'],
         ]);
 
         $user = new User();
@@ -76,6 +77,7 @@ class UserController extends Controller
         $user->nama_kecamatan = $request->nama_kecamatan;
         $user->nama_gampong = $request->nama_gampong;
         $user->email_verified_at = now();
+        $user->is_keuchik = $request->is_keuchik;
         $user->save();
 
         return redirect()->route('user.index')->with('success', 'User berhasil ditambahkan.');
@@ -122,6 +124,7 @@ class UserController extends Controller
             'id_kecamatan' => ['required', 'string', 'max:255'],
             'id_gampong' => ['required', 'string', 'max:255'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'is_keuchik' => ['required', 'boolean'],
         ]);
 
         $user = User::find($id);
@@ -153,6 +156,7 @@ class UserController extends Controller
         $user->nama_kabupaten = $request->nama_kabupaten;
         $user->nama_kecamatan = $request->nama_kecamatan;
         $user->nama_gampong = $request->nama_gampong;
+        $user->is_keuchik = $request->is_keuchik;
         $user->save();
 
         return redirect()->route('user.index')->with('success', 'User Berhasil diperbarui');

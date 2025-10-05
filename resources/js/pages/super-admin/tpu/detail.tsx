@@ -125,6 +125,24 @@ function Detail() {
                                 </TableRow>
                                 <TableRow>
                                     <TableCell className="w-[300px]">
+                                        Total Tersedia
+                                    </TableCell>
+                                    <TableCell>
+                                        :{" "}
+                                        {hitungSisaPemakaman(
+                                            tpu.kapasitas,
+                                            tpu.terpakai
+                                        )}
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell className="w-[300px]">
+                                        Keterangan
+                                    </TableCell>
+                                    <TableCell>: {tpu.keterangan}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell className="w-[300px]">
                                         Status
                                     </TableCell>
                                     <TableCell>

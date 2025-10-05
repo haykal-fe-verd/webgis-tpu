@@ -13,30 +13,14 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // super admin
         User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'superadmin@test.com',
+            'name' => 'Dinas X',
+            'email' => 'dinasx@test.com',
             'role' => 'super admin',
-            'id_kabupaten' => '1171',
-            'nama_kabupaten' => 'KOTA BANDA ACEH',
-            'id_kecamatan' => '1171010',
-            'nama_kecamatan' => 'MEURAXA',
-            'id_gampong' => '1171010019',
-            'nama_gampong' => 'SURIEN',
         ]);
 
-        User::factory()->create([
-            'name' => 'Admin TPU',
-            'email' => 'admintpu@test.com',
-            'role' => 'admin tpu',
-            'id_kabupaten' => '1171',
-            'nama_kabupaten' => 'KOTA BANDA ACEH',
-            'id_kecamatan' => '1171010',
-            'nama_kecamatan' => 'MEURAXA',
-            'id_gampong' => '1171010019',
-            'nama_gampong' => 'SURIEN',
-        ]);
-
+        // admin p3f syahrul
         User::factory()->create([
             'name' => 'Syahrul',
             'email' => 'syahrul@test.com',
@@ -48,6 +32,21 @@ class UserSeeder extends Seeder
             'id_gampong' => '1171030007',
             'nama_gampong' => 'BANDAR BARU',
             'phone' => '085276496515',
+        ]);
+
+        // keuchik
+        User::factory()->create([
+            'name' => 'Iskandar',
+            'email' => 'keuchik@test.com',
+            'role' => 'admin tpu',
+            'id_kabupaten' => '1171',
+            'nama_kabupaten' => 'KOTA BANDA ACEH',
+            'id_kecamatan' => '1171030',
+            'nama_kecamatan' => 'KUTA ALAM',
+            'id_gampong' => '1171030007',
+            'nama_gampong' => 'BANDAR BARU',
+            'phone' => '082304527364',
+            'is_keuchik' => true
         ]);
 
         // User::factory(5)->create();

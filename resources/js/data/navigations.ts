@@ -24,6 +24,10 @@ export const guestNavigations: { name: string; href: string }[] = [
         href: route("daftar-tpu"),
     },
     {
+        name: "Daftar",
+        href: route("daftar"),
+    },
+    {
         name: "Tutorial",
         href: route("tutorial"),
     },

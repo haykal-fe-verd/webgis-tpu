@@ -14,7 +14,7 @@ class PemakamanSeeder extends Seeder
     public function run(): void
     {
         Pemakaman::factory()->create([
-            'id_user'         => 3,
+            'id_user'         => 2,
             'nama_pemakaman'  => "TPU Gampong Bandar Baru Lampriet ( TPU LOKASI BARU )",
             'id_kabupaten'    => '1108',
             'nama_kabupaten'  => 'KABUPATEN ACEH BESAR',
@@ -25,9 +25,11 @@ class PemakamanSeeder extends Seeder
             'alamat'          => "Jl. Laksamana Malahayati, Neuheun, Kec. Mesjid Raya, Kabupaten Aceh Besar, Aceh",
             'luas'            => 12000,
             'kapasitas'       => 2800,
+            'terpakai'        => 500,
             'latitude'        => "5.572933201512188",
             'longitude'       => "95.51633834838869",
-            'is_approved'     => 'disetujui'
+            'is_approved'     => 'disetujui',
+            'keterangan'      => 'Tanah Wakaf'
         ]);
 
         // Pemakaman::factory(20)->create();

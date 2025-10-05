@@ -11,6 +11,16 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import InputError from "@/components/input-error";
+import { hitungSisaPemakaman } from "@/lib/utils";
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 interface BookingTpuProps extends PageProps {
     pemakaman: Pemakaman;
@@ -23,6 +33,8 @@ function BookingTpu() {
         name: "",
         email: "",
         hp: "",
+        sebagai: "",
+        nik: "",
         id_pemakaman: pemakaman.id,
     });
 
@@ -46,7 +58,7 @@ function BookingTpu() {
             >
                 <div>
                     <Link
-                        href={route("daftar-tpu-detail", pemakaman.id)}
+                        href={route("daftar")}
                         className="flex items-center gap-2 text-muted-foreground"
                     >
                         <ChevronLeft className="w-5 h-5" />
@@ -65,6 +77,50 @@ function BookingTpu() {
                             <CardContent className="p-5">
                                 <form onSubmit={onSubmit} className="space-y-5">
                                     <div>
+                                        <Label htmlFor="sebagai">
+                                            Daftar Sebagai
+                                        </Label>
+                                        <Select
+                                            value={data.sebagai}
+                                            onValueChange={(e) =>
+                                                setData("sebagai", e)
+                                            }
+                                        >
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Daftar Sebagai..." />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectGroup>
+                                                    <SelectItem value="warga">
+                                                        Warga
+                                                    </SelectItem>
+                                                    <SelectItem value="non warga">
+                                                        Non Warga
+                                                    </SelectItem>
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
+
+                                        <InputError message={errors.sebagai} />
+                                    </div>
+
+                                    <div>
+                                        <Label htmlFor="nik">NIK</Label>
+                                        <Input
+                                            type="text"
+                                            id="nik"
+                                            name="nik"
+                                            placeholder="NIK"
+                                            value={data.nik}
+                                            onChange={(e) =>
+                                                setData("nik", e.target.value)
+                                            }
+                                            autoFocus
+                                        />
+                                        <InputError message={errors.nik} />
+                                    </div>
+
+                                    <div>
                                         <Label htmlFor="name">Nama</Label>
                                         <Input
                                             type="text"
@@ -75,7 +131,6 @@ function BookingTpu() {
                                             onChange={(e) =>
                                                 setData("name", e.target.value)
                                             }
-                                            autoFocus
                                         />
                                         <InputError message={errors.name} />
                                     </div>
@@ -125,17 +180,94 @@ function BookingTpu() {
                                         {processing && (
                                             <Loader2 className="w-4 h-4 animate-spin" />
                                         )}
-                                        <span>Daftar P3F Gampong</span>
+                                        <span>
+                                            Daftar P3F Untuk Memesan Lahan
+                                        </span>
                                     </Button>
                                 </form>
                             </CardContent>
                         </Card>
 
-                        <img
-                            src={`/tpu-images/${pemakaman.image}`}
-                            alt={`@${pemakaman.nama_pemakaman}`}
-                            className="w-full h-[330px] object-cover border border-border rounded-md"
-                        />
+                        <div className="flex flex-col gap-5">
+                            <img
+                                src={`/tpu-images/${pemakaman.image}`}
+                                alt={`@${pemakaman.nama_pemakaman}`}
+                                className="w-full h-[330px] object-cover border border-border rounded-md"
+                            />
+
+                            <div className="flex flex-col gap-5 w-full">
+                                <h1 className="text-2xl font-bold">
+                                    Detail TPU
+                                </h1>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td className="w-[200px]">
+                                                Nama TPU
+                                            </td>
+                                            <td>:</td>
+                                            <td>{pemakaman.nama_pemakaman}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="w-[200px]">
+                                                Alamat
+                                            </td>
+                                            <td>:</td>
+                                            <td>{pemakaman.alamat}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="w-[200px]">Luas</td>
+                                            <td>:</td>
+                                            <td>
+                                                {pemakaman.luas} m<sup>2</sup>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="w-[200px]">
+                                                Kapasitas
+                                            </td>
+                                            <td>:</td>
+                                            <td>{pemakaman.kapasitas} Jiwa</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="w-[200px]">
+                                                Tersedia
+                                            </td>
+                                            <td>:</td>
+                                            <td>
+                                                {hitungSisaPemakaman(
+                                                    pemakaman.kapasitas,
+                                                    pemakaman.terpakai
+                                                )}{" "}
+                                                Jiwa
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="w-[200px]">
+                                                Keterangan
+                                            </td>
+                                            <td>:</td>
+                                            <td>
+                                                {pemakaman.keterangan ?? "-"}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td className="w-[200px]">
+                                                Nama Penanggung Jawab
+                                            </td>
+                                            <td>:</td>
+                                            <td>{pemakaman.user?.name}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="w-[200px]">No HP</td>
+                                            <td>:</td>
+                                            <td>{pemakaman.user?.phone}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
