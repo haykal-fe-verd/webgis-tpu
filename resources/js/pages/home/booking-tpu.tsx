@@ -169,7 +169,7 @@ function BookingTpu() {
                                         <span className="text-destructive">
                                             *Note
                                         </span>{" "}
-                                        : Untuk booking lahan TPU wajib
+                                        : Untuk pengajuan lahan TPU wajib
                                         mendaftar ke P3F Gampong
                                     </p>
 

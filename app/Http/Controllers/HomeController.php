@@ -54,9 +54,13 @@ class HomeController extends Controller
         return Inertia::render('home/booking-tpu', compact('pemakaman'));
     }
 
-    public function peta(): Response
+    public function peta(Request $request): Response
     {
-        $tpu = Pemakaman::with('user')->where('is_approved', "disetujui")->get();
+        $tpu = Pemakaman::with('user')
+            ->where('id_kabupaten', $request->kabupaten)
+            ->where('id_kecamatan', $request->kecamatan)
+            ->where('is_approved', "disetujui")
+            ->get();
 
         return Inertia::render('home/peta', compact('tpu'));
     }

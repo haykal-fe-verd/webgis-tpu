@@ -11,7 +11,11 @@ import { useToast } from "@/components/ui/use-toast";
 import GuestNavbar from "@/layouts/partials/guest-navbar";
 import GuestFooter from "@/layouts/partials/guest-footer";
 
-function GuestLayout({ children }: PropsWithChildren) {
+type GuestLayoutProps = PropsWithChildren<{
+    enabledFooter?: boolean;
+}>;
+
+function GuestLayout({ children, enabledFooter = true }: GuestLayoutProps) {
     // hooks
     const { sessions, status } = usePage<PageProps>().props;
     const { toast } = useToast();
@@ -44,14 +48,13 @@ function GuestLayout({ children }: PropsWithChildren) {
         <NextThemesProvider
             attribute="class"
             defaultTheme="light"
-            enableSystem
             disableTransitionOnChange
         >
             <main>
                 <GuestNavbar />
                 <div>
                     {children}
-                    <GuestFooter />
+                    {enabledFooter && <GuestFooter />}
                 </div>
 
                 <Toaster />
